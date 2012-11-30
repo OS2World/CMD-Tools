@@ -1,0 +1,10 @@
+NAME        SWITCHTO    WINDOWCOMPAT
+NEWFILES
+
+Description '$@#(C) Roman Stangl (rstangl@vnet.ibm.com):V1.10 (03,1998) (SWITCHTO.exe)#@SwitchTo/2'
+
+DATA        MULTIPLE
+STACKSIZE   32768
+HEAPSIZE    32768
+PROTMODE
+

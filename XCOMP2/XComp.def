@@ -1,0 +1,9 @@
+NAME        XCOMP   WINDOWCOMPAT
+NEWFILES
+
+Description '$@#(C) Roman_Stangl@at.ibm.com:3.10 (05, 2002) (XComp.exe)#@XCOMP/2'
+
+DATA        MULTIPLE
+STACKSIZE   524288
+PROTMODE
+

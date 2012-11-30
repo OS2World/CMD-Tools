@@ -1,0 +1,139 @@
+;**********************************************************************
+;                                CPU/2
+;             Copyright (C) by Roman Stangl, 1998, 2000
+; This Code may be freely distributed, provided the Copyright isn't
+; removed, under the conditions indicated in the documentation.
+;
+; CPUxx.txt    NLS messages file, to support another language create
+;              a copy of this file containing translated messages and
+;              replace xx (for example) by:
+;                  Us ... for US English
+;                  Gr ... for German
+;                  Fr ... for French
+;              And then run the application with the commandline option
+;              -Language Gr (for German,...).
+;
+; Note: Translation just needs to begin with message 3, messages 0 to 2
+;       are reserved
+;
+; Note: The formatting done here is reflected in the actual output of
+;       the message, so I recommend to keep empty lines and the column
+;       width (just keep the shipped message source file as a template)
+;
+;**********************************************************************
+;
+CPU
+CPU0000?:
+CPU0001I: I The NLS messagefile %s does not exist.
+          Please correct that problem,  for now the English messagefile will be
+          used instead!
+CPU0002?:
+CPU0003I: X
+CPU/2 V1.10 - UP and MP CPU Utility/2 for OS/2
+Copyright (C) by Roman Stangl, 1998, 2000 (Roman_Stangl@at.ibm.com)
+                 http://www.geocities.com/SiliconValley/Pines/7885/
+
+CPU0004I: X CPU/2 erlaubt es Ihnen den Prozessorstatus  eines Einzel- (UP ... uniprozessor)
+oder Multiprozessor- (MP ... multiprozessor) systems abzufragen oder zu setzen.
+Es erlaubt  es Ihnen weiters  die Prozessorauslastung anzuzeigen,  sowohl unter
+UP und MP Installationen.
+
+Dieses Programm is Freeware und  kann frei verteilt werden,  solange das Archiv
+komplett bleibt,  jede Portierung auf eine  der technisch unterlegenen  Windows
+Plattformen ist ausdrÅcklich verboten!
+
+CPU0005I: I UnvollstÑndige Befehlszeilenparameter
+
+Syntax: CPU /?
+Wobei:  /? ... Hilfe anzeigen
+
+Ergebnis:
+        0 .... Erfolgreiche DurchfÅhrung
+        1+ ... Fatale, unbehebbare Ausnahmebedingung
+
+CPU0006I: I Befehlszeilenparameter:
+
+CPU0007I: X Syntax: CPU Funktion [Language]
+
+Wobei:  Funktion  ... /Verbose     um den Prozessorstatus abzufragen
+                  ... /Online x    um Prozessor Nummer x auf Online zu setzen
+                  ... /Offline x   um Prozessor Nummer x auf Offline zu setzen
+                  ... /Performance um Performancemessungen zu aktivieren
+
+        Language  ... /Language xx um NLS Meldungen aus der Datei CPUxx.msg
+                                   auszugeben (z.B. US fÅr englisch)
+
+CPU0008E: E Erforderlichen Parameter "Funktion" nicht angegeben oder ungÅltig.
+
+CPU0009E: E Mehrdeutige Parameter fÅr "Funktion" angegeben.
+
+CPU0010E: E Fehler beim dynamischen Laden  der Prozessor Status APIs.  Vermutlich
+benutzen  benutzen  Sie eine nicht  SMP-fÑhige OS/2 Version,  bei der  die APIs
+DosGetProcessorStatus()  und  DosSetProcessorStatus()   nicht  im  OS/2  Kernel
+expordiert werden.
+
+Anm.: Die Parameter /Verbose, /Online und /Offline kînnen daher nicht verwendet
+      werden.
+
+CPU0011E: E Fehler   beim  dynamischen   Laden  des   Performance-Messungs  APIs.
+Sie  benutzen wahrscheinlich  eine nicht unterstÅtzte  OS/2 Version (vermutlich
+eine  Ñltere Version,  die den  API  DosPerfSysCall()  nicht  unterstÅtzt.  Die
+neueren Fixpacks sollten das beheben.
+
+Anm.: Der Parameter /Performance kann daher nicht verwendet werden.
+
+CPU0012E: E Fehler bei Abfrage der Anzahl installierter Prozessoren, Sie benutzen
+wahrscheinlich  eine  nicht unterstÅtzte  OS/2 Version  (vermutlich eine Ñltere
+Version die den API DosQuerySysInfo(QSV_NUMPROCESSORS) nicht unterstÅtzt).
+
+Anm.: Die Parameter /Verbose, /Online und /Offline kînnen daher nicht verwendet
+      werden.
+
+CPU0013I: I Aktueller Status der installierten Prozessoren:
+CPU0014I: X           Prozessor $$2ld online
+CPU0015I: X           Prozessor $$2ld offline
+CPU0016I: X
+CPU0017E: E Fehler SYS$$04d bei Statusabfrage von Prozessor $$2ld.
+
+CPU0018E: E Ein unerwarteter Fehler ist beim Lesen eines Prozessorstatuses aufge-
+treten. Dieser Fehler  dÅrfte nicht auftreten,  da er  bedeuten wÅrde, dass ein
+Prozessor nicht abgefragt werden konnte  obwohl er beim Laden von  OS/2 erkannt
+wurde.
+
+CPU0019I: I StatusÑnderung  fÅr  nicht installierten  Prozessor  $$2ld  angefordert.
+Bitte stellen  Sie sicher,  dass Ihre  Anforderung innerhalb  des unterstÅtzten
+Bereichs von Prozessor 2 bis Prozessor $$2ld bleibt.
+
+CPU0020E: E Bitte stellen Sie, sicher dass Parameter in den definierten Bereichen
+liegen. Eine StatusÑnderung fÅr Prozessor 1 ist beispielsweise nicht mîglich!
+
+CPU0021E: E Die  StatusÑnderung war  nicht erfolgreich,  probieren  Sie es  bitte
+spÑter nocheinmal.
+
+CPU0022I: I Fehler SYS$$04ld bei der StatusÑnderung von Prozessor $$2ld.
+
+CPU0023I: I Die Anforderung zur  StatusÑnderung wurde erfolgreich  abgesetzt, die
+ÅberprÅfende Statusabfrage zeigt jedoch keine énderung des Status.
+
+CPU0024I: I Bitte drÅcken Sie die Leerzeichen-Taste, um die Anzeige der relativen
+CPU Auslastung, gegliedert nach folgenden Anteilen zu beenden:
+
+In der Form: CPU x ( aa/ bb/ cc), wobei
+
+x    ... Prozessor (x)
+Idle ... Anteil der Arbeitslosigkeitszeit (aa)
+Busy ... Anteil der Arbeitszeit (bb)
+Intr ... Anteil der Unterbrechungszeit (cc)
+ 
+CPU0025I: P CPU$$2ld ($$3ld/$$3ld/$$3ld)
+
+CPU0026I: X
+
+Performancemessungen durch Benutzeranforderung beendet.
+
+CPU0027E: E Unerwarteter  Fehler bei der Abfrage der  CPU Auslastung.  Es handelt
+sich hîchst wahrscheinlich um einen Programmfehler  wenn das Problem immer auf-
+tritt, bei intermittierendem Auftreten wÑre auch ein Fehler im OS/2 Kernel vor-
+stellbar.
+
+

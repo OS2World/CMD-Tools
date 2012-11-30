@@ -1,0 +1,760 @@
+<!doctype html public "-//IETF//DTD HTML 3.2//EN">
+<html>
+<head>
+<center><title>The official XCOMP/2 home page</title></center>
+<meta name="description" content="Official XCOMP/2 homepage">
+<meta name="keywords" content="Roman Stangl, XCOMP, recurisve file comparison, OS/2, official release">
+<meta name="owner"    content="Roman_Stangl@at.ibm.com">
+<meta name="review"   content="21.05.2002">
+<meta name="security" content="public">
+</head>
+<body background="Os2Warp.gif">
+<h1>The XCOMP/2 home page</h1>
+<font Face="Helv,Helvetica,Arial">
+<p>
+<h2>What is XCOMP/2</h2>
+<p>
+Welcome to the home of <em>XCOMP/2</em>, a recursive file compare utility.
+<em>XCOMP/2</em> is for comparing files what is <em>XCOPY</em> is for
+copying files, something I was definitely missing in the OS/2 product.
+A port for <a href="WIN32/XCompWin32.html">WIN32</a> is also available
+(for those who are sometimes forced to use Windows, but you need OS/2
+to get access to that port!).
+<p>
+You may also want to take a look into the <a href="IsoComp.html">ISOCOMP/2</a>
+tool, which lets you compare a CD-ROM's contents with the ISO image 
+(or RSJ track image) file it has been burnt with, or you may create an ISO
+image out of a CD-ROM.
+<p>
+When invoking XCOMP.EXE without commandline arguments, the help is displayed:
+</font>
+<xmp>
+XCOMP/2 - The recursive file compare utility for OS/2, V3.10
+
+          (C) Roman Stangl 05, 2002 (Roman_Stangl@at.ibm.com)
+          http://www.geocities.com/SiliconValley/Pines/7885/
+
+Use the XCOMP command to selectively compare groups of files located in two
+directories, including all subdirectories.
+
+Syntax:
+  XCOMP [drive:\|\\server\][path\]filename(s) [[drive:\|\\server\]path] [/!MP]
+        [/LOG[:[drive:\|\\server\][path\]file]] [/!C] [/!F] [/!S] [/!B] [/P]
+        [/TINY] [/LINE] [/SIMULATE] [/CHK:[drive:\|\\server\][path\]file]
+Where:
+  [drive:\|\\server\][path\]filename(s)
+                 Specifies the location and name of the Source file(s) to
+                 compare from. You may specify a fully qualified path or
+                 UNC path.
+  [[drive:\|\\server\]path]
+                 Specifies the location of the Target path to compare with.
+                 You may specify a fully qualified path or UNC path.
+  [/MP]
+                 Specifies that 1 thread reads the source and 1 thread reads
+                 the target file. This improves througput when comparing from 2
+                 different physical drives (e.g. CD-ROM and Harddisk).
+  [/LOG[:[drive:\|\\server\][path\]file]]
+                 Specifies that XCOMP/2 logs all problems into a file specified
+                 either by this parameter, or by the XCOMP environment variable
+                 or into XCOMP.LOG (put into the directory XCOMP/2 was
+                 installed into) otherwise.
+  [/!C]
+                 By default, XCOMP/2 pauses at all mismatches. Specifying this
+                 option allows XCOMP/2 just display the mismatch and continue
+                 the comparison without a pause (e.g. useful when using the
+                 /LOG option or output redirection).
+  [/!F]
+                 By default, XCOMP/2 pauses for files in the source location
+                 that can't be found at the target location. Specifying this
+                 this option allows XCOMP/2 just display the miss and continue
+                 the comparison without a pause (e.g. useful when using the
+                 /LOG option or output redirection).
+  [/!S]
+                 By default, XCOMP/2 recurses into all subdirectories it finds,
+                 specifying this option prevents XCOMP/2 doing that.
+  [/!B]
+                 By default, XCOMP/2 will beep, when a severe error occurs
+                 accessing a file at the source or target location. Specifying
+                 this option will silence XCOMP/2 (e.g. useful when using the
+                 /LOG option or output redirection).
+  [/P]
+                 Request XCOMP/2 to pause when it has finished.
+  [/TINY]
+                 2 64kB buffers are used instead of a percentage of total RAM.
+  [/LINE]
+                 Display line number information for messages (useful for e.g.
+                 debugging)
+  [/SIMULATE]
+                 Does not compare the files (useful for e.g. just to list what
+                 files would be compared by checking their existance)
+  [/CHK:[drive:\|\\server\][path\]file]
+                 Specifies that XCOMP/2 uses a checksum file to ensure data
+                 integrity. If the checksum file does not exist, it will be
+                 created, otherwise compared with the checksum calculated
+                 from the data read from the Source.
+                 When using the extension ".MD5" is used, the checksum file
+                 will be compatible to the MD5SUM utility. You may need the
+                 option /!S additionally, as MD5SUM ignores subdirectories.
+Returns:
+  0              Successful completion
+  1              Files could not be opened to compare (possibly 0-length,
+                 locked or not existing)
+  2              Directories could not be opened to search for files (possibly
+                 access right or file system problems)
+  3              Directories could not be opened to search for directories
+                 possibly access right or file system problems)
+  4              A mismatch between at least 1 file was detected
+  5              A mismatch between the calculated Checksum and the recorded
+                 one in the Checksum file of at least 1 file was detected
+  100+           Fatal, unrecoverable exceptions
+
+XCOMP101: Too few commandline arguments specified.
+</xmp>
+<font Face="Helv,Helvetica,Arial">
+<p>
+Well, above explanation should be self explanatory.
+There are basically 2 variations for the commandline:
+<ul>
+<li>The first which allows you to compare the contents of specified
+files at the Source path with the equivalent named files at the target
+path.
+Additionally, you might specify e.g. the <b>/CHK</b> option to also
+calculate the CRC32 and MD5 Checksum for the Source files.
+<li>The second allows you to specify only the files at the Source path.
+This it is not checked, that commandline only makes sense together with
+the <b>/CHK</b> option, in that case the CRC32 and MD5 checksums calculated
+from each file is written into the Checksum file specified, or compared
+with the Checksums recorded there earlier (if the Checksum file already
+exists).
+</ul>
+<p>
+A sample run may output:
+</font>
+<xmp>
+[0: H:\programming\xcomp]xcomp p:\notes\archivepsk* h:\notes\data\archives
+
+Comparing files qualified by archivepsk*
+  at Source path             P:\notes\               
+  with Target path           H:\notes\data\archives\ 
+using 4194304 bytes buffer size
+
+ArchivePSK1998.nsf
+ArchivePSK1999.nsf
+ArchivePSK2000.nsf
+
+XCOMP001: Throughput Source 556kB/s, Destination 46247kB/s, Total 1064kB/s
+XCOMP007: 3 file(s) compared successfully, 3 file(s)compared totally.
+</xmp>
+<font Face="Helv,Helvetica,Arial">
+<p>
+One note about the line containing the <b>Throughput</b> measurements.
+In that example I was comparing some Lotus Notes databases on a backup CD-RW
+with the orignal on a harddisk.
+You can see that the <b>Source</b> drive, a CD-ROM drive, delivers a not too
+high throughput (it seems that that this 8-16 speed CD-ROM drive isn't too
+comfortable reading CD-RWs), while the <b>Target</b> drive, a Ultra-Wide SCSI drive
+delivers excellent performance (ok, actually it's the HPFS386 cache ;-)
+giving an acceptable <b>Total</b> performance.
+<p>
+The performance given for <b>Source</b> and <b>Destination</b> is just the raw performance
+of the OS/2 <b>DosRead()</b> API without accounting for overhead like doing
+the file searched and the comparison itself.
+The Total performance does include all overhead, that is the timer is started
+when the first file is searched and stopped when all files have been compared.
+Thus, don't take the performance specified too serious!
+<p>
+If the <b>Source</b> and <b>Destination</b> drives are different physical drives
+you may reduce the run-time by specifying the option <b>/MP</b>.
+Using that option causes 2 threads to be used for reading the Source and
+Destination files simultaneously instead of doing that sequentially with a single
+thread.
+<br>
+This option is most useful when reading from 2 drives of similar speed e.g.
+a CD-ROM and a CD-RW drive (because the 2 slow accesses will be done in
+parallel instead of sequential), it's less useful when having drives with a great
+difference in speed (because reading the fast drive takes almost no time
+compared to reading the slow drive, thus the slow drive alone affects the
+overall performance).
+<p>
+Use the option <b>/!C</b> if you do not want the comparison to stop waiting
+for the user pressing a key for every miscompare.
+This option may only be useful when you use the <b>/LOG</b> option or redirect
+the output into a file, as otherwise the lines stating the miscompare
+scroll away too fast.
+<p>
+Use the option <b>/!F</b> if you do not want the comparison to stop whenever
+a file in the source location can not be found in the target location.
+This option may only be useful when you use the <b>/LOG</b> option or redirect
+the output into a file, as otherwise the lines stating the miscompare
+scroll away too fast.
+<p>
+You may also notice that you may have a different buffer size.
+This is normal, because XCOMP/2 takes the amount of physical memory into
+account to be efficient on one hand and to limit swapping on the other hand.
+Using the option <b>/TINY</b> XCOMP/2 will use 2 64kB buffers instead of a
+percentage of the RAM installed.
+This might be useful if you are running a memory constraint system.
+<p>
+Finally, to ensure that you can notice the progress, a percentage indicator
+will be displayed while comparing files that are larger than the given
+buffer size.
+<p>
+If you just want to see if all files exists without actually comparing them
+(thus saving much time for the price of possibly overlooking corrupt data),
+then invoke XCOMP/2 with the <b>/SIMULATE</b> option.
+<p>
+With the <b>/CHK</b> option you can specify the fully qualified path of the
+Checksum file containing the CRC32 and MD5 checksums for all Source
+files found.
+If the Checksum file does not exist already, it will be created, otherwise
+the Checksums within that file recoreded earlier will be compared to what 
+has been calculated for the Source files just now.
+The option <b>/!C</b> also affects problems detected for the <b>/CHK</b>
+option.
+<p>
+<b>Warning!</b>
+It is expected that the files in the Checksum file do correspond to the
+qualified source files, that is, XCOMP/2 will not try to synchronize if
+one or more files have been added or deleted!
+I thus recommend to use the Checksum file only against files that are
+static, e.g. you use XCOMP/2 to calculate the Checksum file, and then
+burn the Source files and the Checksum file onto a CD-ROM, later on you
+can verify that the Source files on the CD-ROM are still valid by
+running XCOMP/2 against them and the Checksum file.
+You no longer would need to have a second copy of the files to know if
+they are still valid, however if XCOMP/2's Checksum calculation tell you
+that the Checksums no longer match, you just know the files got corrupted
+but you still may need to obtain an uncorrupted copy of the files!
+<p>
+When comparing using CD, CD-R or CR-RW media, you may get alarmed by miscompares
+which disappear when running the same (or limited to a subdirectory only)
+comparison again.
+I'm not sure what causes that, but I suspect that misreads of the drive
+(e.g. weak bits) occured.
+Reading the same files again may just cause different read results due to the
+drive's head repositioning in a different way.
+<p>
+<h2>Examples</h2>
+<p>
+As with V2.00 the interpretation of the commandline arguments regarding
+the source and target paths became more intelligent, here are some
+examples on the usage (we are located at S:\Orig and have XCOPY'd all
+files from there into T:\Copy):
+</font>
+<p>
+<table BORDER=2 CELLSPACING=2 CELLPADDING=2 WIDTH="100%" >
+<tr>
+<td WIDTH="40%"><center>Command</center></td>
+<td WIDTH="60%"><center>Resulting comparison from XCOMP/2</center></td>
+</tr>
+<tr>
+<td><xmp>XCOMP S:\Orig\* T:\Copy</xmp></td>
+<td>
+<xmp>
+Comparing files qualified by *
+  at Source path             S:\Orig\
+  with Target path           T:\Copy\
+using 2097152 bytes buffer size
+</xmp>
+The most trivial example using 2 fully qualified paths.
+Specifying the qualified filename with "*" could of course be replaced
+with one actually wants to compare, e.g. "*.ba*" or "????.ba?"</td>
+</tr>
+<tr>
+<td><xmp>XCOMP S:\Orig\ T:\Copy</xmp></td>
+<td>
+<xmp>
+Comparing files qualified by *
+  at Source path             S:\Orig\
+  with Target path           T:\Copy\
+using 2097152 bytes buffer size
+</xmp>
+If you do not qualify the filenames to compare for the source, by default "*" is assumed.</td>
+</tr>
+<tr>
+<td><xmp>XCOMP * T:\Copy</xmp></td>
+<td>
+<xmp>
+Comparing files qualified by *
+  at Source path             S:\Orig\
+  with Target path           T:\Copy\
+using 2097152 bytes buffer size
+</xmp>
+The source "*" is expanded to a fully qualified path by querying the current directory.</td>
+</tr>
+<tr>
+<td><xmp>XCOMP . T:</xmp></td>
+<td>
+<xmp>
+Comparing files qualified by *
+  at Source path             S:\Orig\
+  with Target path           T:\Copy\
+using 2097152 bytes buffer size
+</xmp>
+If you specify a relative path like ".", it is expanded to a fully qualified path.
+<br>
+As no qualified filename is specified too, "*" is assumed.
+Using ".*" instead would have avoided that assumption.
+<br>
+As no directory is specified for the target path, the current directory on that
+drive is assumed.
+Having specified "T:." would have led to the same result.</td>
+</tr>
+<tr>
+<td><xmp>XCOMP S: T:</xmp></td>
+<td>
+<xmp>
+Comparing files qualified by *
+  at Source path             S:\Orig\
+  with Target path           T:\Copy\
+using 2097152 bytes buffer size
+</xmp>
+As you didn't specify a path, the current directories "S:\Orig" and
+"T:\Copy" will be taken automatically.<br>
+As no qualified filename is specified too, "*" is assumed.</tr>
+<tr>
+<td><xmp>XCOMP ..\Orig\ T:..\Copy</xmp></td>
+<td>
+<xmp>
+Comparing files qualified by *
+  at Source path             S:\Orig\
+  with Target path           T:\Copy\
+using 2097152 bytes buffer size
+</xmp>
+The relative path "..\Orig\" is expanded to "S:\Orig\" and as no qualified
+filenames are specified "*" is assumed.
+<br>
+The same applies to "T:..\Copy" which gets expanded to "T:\Copy\*".</td>
+</tr>
+<tr>
+<td><xmp>XCOMP \\pka1002s\Orig\ \\pka1002d\Copy</xmp></td>
+<td>
+<xmp>
+Comparing files qualified by *
+  at Source path             \\pka1002s\Orig\
+  with Target path           \\pka1002d\Copy\
+using 2097152 bytes buffer size
+</xmp>
+For UNC-Names, things are treated the same way, e.g. as no qualified
+filename is available here, "*" is assumed.</td>
+</tr>
+<tr>
+<td><xmp>XCOMP S:\*
+/Chk:S:\ChkSum.Log /Log</xmp></td>
+<td>
+<xmp>
+Calculating CRC32 and MD5 checksums qualified by *
+  at Source path             S:\
+  writing Checksum file into S:\CHKSUM.LOG
+using 8388608 bytes buffer size
+and logging into H:\PROGRAMMING\XCOMP\XCOMP.Log
+</xmp>
+As the Checksum file did not exist previously, it will be created (containing
+the CRC32 and MD5 checksums and the fully qualified filename of each qualified
+file.
+<p>
+Ideally, you would run XCOMP/2 that way before saving all files on Q:
+and the newly Checksum file onto a backup media (e.g. burning that onto
+CD-ROM).
+<p>
+If you (after e.g. having burnt the files onto a CD-ROM in drive Z: at
+Z:\Backup) and would
+run: XCOMP Z:\Backup\* /Chk:Z:\ChkSum.Log /Log once again, XCOMP/2 would
+now compare the Checksum file with the Checksums calculated from the files
+on the CD-ROM:
+<xmp>
+Calculating CRC32 and MD5 checksums qualified by *
+  at Source path             Z:\Backup\
+  reading Checksum file into Z:\CHKSUM.LOG
+using 8388608 bytes buffer size
+and logging into H:\PROGRAMMING\XCOMP\XCOMP.Log
+</xmp>
+In case you have burnt the data at S:\ into the root of the CD-ROM at Z:\,
+and had run: XCOMP Z:\* /Chk:Z:\ChkSum.Log /Log, XCOMP/2 notice that the
+Checksum file Z:\ChkSum.log is within the path Z:\ of your backup.
+<br>
+As it doesn't make sense to include the Checksum file itself in the Checksum
+calculation, XCOMP/2 will skip that file writing:
+<xmp>
+XCOMP143: Skipping specified checksum file
+</xmp>
+</td>
+</tr>
+</table>
+<font Face="Helv,Helvetica,Arial">
+<p>
+If you find any inconsistency, or have a suggestion, please tell me!
+<p>
+<h2>Verifying burned CD-R's and CD-RW's</h2>
+<p>
+As said, my primary motivation to write XCOMP/2 was to compare what has been
+burned onto a CD-R or CD-RW with the original data, as I do not trust write
+operations that have no explicit verification, e.g even if it takes some time
+I do verify the data when copying something to a floppy disk media.
+<p>
+And from my personal experience I'm right being sceptical here.
+I already have encountered a few CD-Rs and CD-RWs that contained currupted data.
+I have seen effects that best can be described as <em>weak bits</em>, which used
+to be a copy-protection mechanism for games on floppy disks.
+<em>Weak bits</em> are bits read from a media sometimes incorrectly and sometimes
+correctly, and that rate may even be different between different CD-ROM drives.
+<p>
+The technical reasons seem to be (and looking around in the Internet confirms that):
+<ul>
+<li>CD-Rs and CD-RWs just contain large amounts of data, so even if the probability
+of a single bit failing is very low, the high number of bits on a CD may cause
+some faults.
+<li>CDs were initially developed to contain audio data where it does not make
+much difference if a few bits are read incorrectly, the human ear would not
+notice the difference.
+For data CDs even a single bit error will cause a problem, even if much more
+capacity on a CD is spent for error detection and correction.
+<li>CDs were initially rated as <em>single speed</em>, today's recorders can
+burn a the tenfold or higher speed.
+That of course decreases the time to burn a single bit accordingly, that is the
+time to position the laser and turn the laser power on to heat up the substrate
+gets shorter and shorter.
+It is easy to imagine that this can increase the failure rate, and even if the
+CD-R or CD-RW is rated for a high speed you may get better results buring with
+a lower speed.
+<li>Different CD-ROM drives have different characteristics and may produce
+different result, or may even be incompatible with some burners.
+Combine that with increasing writing speeds, and again we have the problem that
+the time to read a bit gets shorter and shorter.
+<li>When using CD-RWs instead of CD-Rs the failure rate may increase because
+of the different design of such medias, especially regarding the reflection.
+Combine that with the fact that different materials require the writing
+laser to operate at different power levels, and you can just hope that the
+media correctly tells the burner which power level to use.
+<li>CD-ROMs initially were specified to contain 74 minutes or 650 MBs of data,
+to increase the capacity the limits of those specifications were reached
+(e.g. for 80 minutes or 700 MB CDs) or even exceeded (e.g. for 90 minutes
+or 800 MB CDs).
+<li>Last but not least CD-Rs and CD-RWs are getting cheaper and cheaper, and
+from that cost pressure it's not hard to imagine that this will put some
+pressure on manufacturing for being as cheap as possible.
+<li>At least for CD-Rs it seems that the important reflection layer that is
+fundamental for the CD-ROM drive being able to read the CD is the same
+layer that covers the top side of a CD (the side where one writes the
+CD title onto).
+If that layer is scratched even slightly, you have some worthless plastic
+waste in your hands (and in contrast to the bottom layer that one can't
+be <em>repaired</em> as far as I know).
+</ul>
+Considering all that, I'm quite sure that one should spend the short time
+required to verify what has been put onto a CD-R or CD-RW.
+For important data that is not easily reproducably I recommend even to burn
+at least 2 copies.
+<p>
+<h2>Handling ISO image files (and RSJ track image files)</h2>
+<p>
+XCOMP/2 allows you to do a comparison at the file level, that is you need
+one or more source files that will be compared to one or more target files.
+Sometimes however, you don't have the source files have burnt onto a CD-ROM,
+but only the corresponding ISO image (or RSJ track image).
+<p>
+An ISO image is just the datastream in a single file, that makes up the
+contents of a CD-ROM session from the beginning to the end.
+Again, you want to be sure that the contents of the ISO image file you
+have created a CD-ROM from exactly equals wioth what has been written onto
+the CD-ROM.
+<p>
+There's a solution for that problem too, just use the 
+<a href="IsoComp.html">ISOCOMP/2</a> tool, which lets you compare a CD-ROM's
+contents with the ISO image (or RSJ track image) file it has been burnt with.
+<p>
+<h2>What's new</h2>
+<p>
+The following items have changed between V3.10 and its predecessor 3.00:
+<ul>
+<li>Fixed a problem running out of stack space when recursing into a too
+deeply nested directory structure.
+Stack space increased from 64kB to 512kB which is enough now to recurse
+into the deepest directory structure possible on HPFS.
+Thanks to Peter Skye for reporting that bug.
+<li>Fixed that XCOMP/2 incorrectly showed SYS3 errors on FAT drives that
+WIN9x has accessed (and written VFAT long filenames).
+Thanks to Peter Skye for reporting that inconsistency (inconsistency, because
+it looks like WIN9x somehow messes up the VFAT in a way OS/2 APIs return
+strange results).
+<li>Added a check that XCOMP/2 tries to exclude the Checksum file from the
+path specified for the comparism and Checksum calculation, which is very useful 
+if the Checksum file is within that path (because the Checksum for the Checksum
+file itself for the current run never will be what has been recorded
+in the previous one, and that causes XCOMP/2 to pause and getting out of sync
+with errors).
+Note! You probably can specify the paths for the files for the comparison or
+Checksum calculation and the path for the Checksum file in such a way that
+XCOMP/2 will not always be able to figure out that the Checksum file is in the
+path specified for the comparison or Checksum calculation.
+<li>Added the option <b>/P</b> to pause XCOMP/2 on exit.
+<li>Added a dump of possible memory leaks when compiled in Debug mode.
+<li>Added the option <b>/!S</b> to request XCOMP/2 not to recursively
+descent into subdirectories.
+Note that Linux's MD5SUM does ignore subdirectories.
+<li>Added that the Checksum file is written or read in the format of MD5SUM,
+if the extension specified for the Checksum file is <b>.MD5</b>.
+Note that MD5SUM in contrast to XCOMP/2 (unless the option <b>/!S</b>
+is specified, ignores subdirectories.
+<li>Added support for an arbitrary filename sequence of the Checksum file
+contents in relation to the filename sequence in the filesystem.
+In other words, the sequence of the filenames in the Checksum file do no
+longer need to be exactly the sequence the files are returned from the
+filesystem.
+<br>
+This is especially usefuly when you burn the contents of e.g. a HPFS drive
+onto a CD-ROM, because the HPFS filesystem always returns the files in
+the alphabetically ascending sequence of the filename, whereas the CD-ROM's
+CDFS returns the filenames in the sequence they were burnt onto the CD-ROM
+which may be any arbitrary sequence.
+<li>Changed that percentage progress indicator does not rewrite if percentage
+has not changed.
+<li>Changed that the Checksum file does no longer contain full but relative
+paths.
+<li>Changed that the filenames in the Checksum file are compared case 
+insensitive, because that's the default under OS/2 (OS/2 is case-preserving,
+but not case-sensitive).
+Note, that Linux in contrast is case-sensitive.
+</ul>
+<p>
+The following items have changed between V3.00 and its predecessor 2.50:
+<ul>
+<li>Fixed that running XCOMP/2 against many large files and/or very long
+caused an integer overflow by switching to 64-bit integer calculations.
+<li>Fixed with a workaround, that the OS/2 profiling APIs sometimes return
+and earlier end than starting time.
+<li>Added the option <b>/CHK</b> which adds Checksum calculation and
+verification support to XCOMP/2.
+<li>Added the option <b>/!B</b> which silences XCOMP/2 when a severe error
+accessing a file at the source or target location occurs.
+This may be useful if you use the <b>/LOG</b> option or output redirection
+to run XCOMP/2 unattendedly, or you expect lots of miscompares that would
+cause lots of annoying beeps.
+<li>Added special checking for errors caused by defective source or target
+medias (e.g. causing CRC or Sector Not Found errors), and informing the
+user that the media may be suspect.
+<br>
+The rational behing that is, that I have experienced that especially
+high speed CD-RWs (10x writing factor) tend to have weak bits or hard
+bit failures.
+Considering the mechanical, optical and timing requirements when writing
+CD-RWs and CD-Rs at high speeds I'm not really surprised that sometimes
+a few bits toggle.
+Another reason that every self-burnt CD should be tested!
+<li>Added the <b>ISOCOMP/2</b> ISO image (and RSJ track image) comparison
+utility.
+<li>Changed that XCOMP/2 disables the System Error handler, but handles
+them locally (that is no System Error popup window will show up).
+</ul>
+<p>
+The following items have changed between V2.50 and its predecessor 2.40:
+<ul>
+<li>Added a workaround for a possible TVFS bug (TVFS does sometimes return
+files during enumeration of all directories within a (sub)directory, may be
+related to the mix of TVLINKing files and directories mixed).
+<li>Added the option <b>/SIMULATE</b> which does all XCOMP/2 would do, but does
+not actually compare the files (that is, XCOMP/2 recurses into all subdirectories,
+opens all files to check for their existance, checks their sizes and closes
+them again without acutally comparing their contents). This may be useful to ensure
+that all files exist, can be opened and are of the same size, neglecting any
+possible differences. Of course, this is much faster than acutally comparing the
+files.
+<li>Added that XCOMP/2 will pause if the source file can't be opened due to
+being locked by a process (e.g. SWAPPER.DAT), unless option <b>/!F</b> is
+specified.
+<li>Added a port to the WIN32 environment (as I wanted to confirm that OS/2
+is the superior platform also for an development environment ;-).
+<li>Fixed that error message processing sometimes contained redundant code, removed
+redundancy.
+</ul>
+<p>
+The following items have changed between V2.40 and its predecessor 2.30:
+<ul>
+<li>Added the options <b>/!C</b> (which relaces the option <b>/NOPAUSE</b>),
+and <b>/!F</b>
+<li>Added the option <b>/LOG[:[drive:\|\\server\][path\]filename]</b> to
+allow XCOMP/2 to write a logfile so that you can run it unattended while
+still ensuring that you will not miss any problem.
+If you specify a filename with that option, XCOMP/2 will log all problems
+into that file, otherwise it will log them into the file specified by
+the <b>XCOMP</b> environment variable or if that is not available into
+the file <b>XComp.Log</b> in the directory <b>XComp.Exe</b> was launched
+from.
+<li>Added the option <b>/LINE</b> to enhance problem determination.
+You likely will only need that option during problem determination.
+<li>Changed that XCOMP/2 will now by default pause not only when a compared
+files does not match but also when a file available at the source location
+has no equivalent in the target location.
+Thanks to Timur Tabi for that suggestion.
+<li>Fixed that using "." in the source location when the current directory
+is the root directory failed with an error message.
+</ul>
+The following items have changed between V2.30 and its predecessor 2.20:
+<ul>
+<li>Added that XCOMP/2 will beep when it has terminated, this will alert you when
+XCOMP/2 is running in the background.
+<li>Added that XCOMP/2 will now display the directories it traverses into in addition
+to the file it compares in those directories.
+<li>Fixed that if XCOMP/2 gets an error accessing a directory to compare files
+or to find subdirectories within (e.g. due to access right or file system problems),
+it will now display the directory in error and either continue or terminate
+(depending on the type of the error).
+Thanks to Wilbur E. Hong for that suggestion!
+</ul>
+The following items have changed between V2.20 and its predecessor 2.10:
+<ul>
+<li>Fixed that if an error occurs during opening of the files no
+filename was displayed but just the error message preventing the user
+to see which file(s) failed.
+</ul>
+The following items have changed between V2.10 and its predecessor 2.01:
+<ul>
+<li>Added documentation for the /TINY commandline option which uses 2 64kB buffers
+for the file comparisons.
+<li>Added to display the retry counter when retrying a comparison due to
+a miscompare.
+</ul>
+The following items have changed between V2.01 and its predecessor 2.00:
+<ul>
+<li>Fixed a severe bug that caused to ignore miscompares within files
+of the same length (was introduced when I added a retry count to handle
+weak bit errors when reading CD-Rs in older CD-ROM drives).
+<li>Fixed that the executable contains the correct BLDLEVEL signature.
+<li>Added a message showing the total files compared.
+</ul>
+The following items have changed between V2.00 and its predecessor 1.50:
+<ul>
+<li>The commandline option <b>/NOPAUSE</b> has been added to prevent the
+default behaviour of V2.00 to stop further comparison when an error is
+detected waiting for the user to press a key.
+This option may be useful if you log <em>XCOMP</em>'s output into a
+file (using file redirection).
+<br>
+Up to V1.50 the default option was not to stop when an error was detected,
+which was modelled after <em>XCOPY</em>'s behaviour, but proofed to be
+a bad idea when comparing much files (e.g. CD-R's or CD-RW's) as the
+non matching files easily scrolled away.
+<li>Checking of some return codes has been improved.
+<li>Added a consistency check to be sure the correct parts of the
+files are compared.
+<li>The major improvement is a more intelligent interpretation of the
+commandline arguments regarding the source and target paths.
+Please see the examples for more details.
+<li>Fixed a race condition when using the option <b>/MP</b> that caused
+to show miscompares when there were none.
+</ul>
+<p>
+<h2>CRC32 and MD5 checksum logic</h2>
+<p>
+The calculation of CRC32 and MD5 checksums is based on what that seems to be
+the standard algorithm used on the Internet.
+As I'm certainly not an expert in cryptology, and thus can't tell how good 
+the quality of the CRC32 and MD5 checksums is (AFAIK it's rather good) , I
+used the sample codes I found on the Internet after a little searching
+as a starting point.
+<p>
+The CRC32 implementation I dereived from some freely available sample codes, 
+the MD implementation is derived from the <b>RSA Data Security, Inc. MD5 Message-Digest 
+Algorithm</b> sample implementation, which is also freely available if above 
+identification is included on materials based on it.
+<p>
+The Checksum file in XCOMP/2 format looks like similar to:
+</font>
+<xmp>
+CRC32: 36C8980A MD5: B924D691FA3C927737915B67386A357C Path: \programming\xcomp\FILE_ID.DIZ
+CRC32: ED340765 MD5: EBA0C6FE8AA2540E7AC65013C93F498A Path: \programming\xcomp\IsoComp.Cpp
+CRC32: C18BAF14 MD5: DB98BC97CB5A7B3195F0839BDDB00DC7 Path: \programming\xcomp\IsoComp.def
+CRC32: 78349322 MD5: 1B925D121F36090F4A1A44608512AE6C Path: \programming\xcomp\IsoComp.exe
+CRC32: 5AB17915 MD5: BA4AFCBE90B519BFB42E7D73583BE482 Path: \programming\xcomp\IsoComp.Hpp
+CRC32: 26186B92 MD5: 966F23969EA14AC19EE924D45DD0CB88 Path: \programming\xcomp\IsoComp.html
+...
+</xmp>
+<font Face="Helv,Helvetica,Arial">
+<p>
+The Checksum file in MD5SUM format looks like similar to:
+</font>
+<xmp>
+b924d691fa3c927737915b67386a357c *FILE_ID.DIZ
+eba0c6fe8aa2540e7ac65013c93f498a *IsoComp.Cpp
+db98bc97cb5a7b3195f0839bddb00dc7 *IsoComp.def
+1b925d121f36090f4a1a44608512ae6c *IsoComp.exe
+ba4afcbe90b519bfb42e7d73583be482 *IsoComp.Hpp
+966f23969ea14ac19ee924d45dd0cb88 *IsoComp.html
+...
+</xmp>
+<font Face="Helv,Helvetica,Arial">
+<p>
+For MD5SUM compatible Checksum files you may need to specify the option <b>/!S</b>
+additionally, as MD5SUM does not seem to be able to recurse into subdirectories
+(at least I couldn't figure it out).
+<p>
+If you write the Checksum file into the path of the files you requested the comparison or
+Checksum calculation to be done, you would modify the Checksum file in that path while 
+XCOMP/2 has already started its Checksum calculations (and that modification would of course
+result into different Checksum file contents).
+In other words, you would remove the floor under XCOMP/2's feet!
+<br>Thus XCOMP/2 tries to detect the Checksum file in the filesystem and ignore it for the
+Checksum processing.
+<p>
+XCOMP/2 has to handle that situations, and thus you have to observe:
+<ul>
+<li>the sequence of the files in the path does not need to be the same between the initial 
+writing of the Checksum file and any comparism with the Checksum file later.
+For e.g. HPFS drives this is automatically the case, because that filesystem always sorts
+the files in the same sort order, however depending on the character set the sorting
+between a HPFS media and e.g. a CD-ROM media may be different.
+<li>XCOMP/2 will exclude the Checksum file itself (for the comparison or Checksum
+calculation). This is necessary, because when writing the Checksum file its contents
+permanentely change and thus also its Checksum, while the Checksum written for the 
+Checksum file itself was only valid during one of that changes.
+<li>XCOMP/2 will run case-insensitive, as this is the default under OS/2.
+Under Linux however, MD5SUM is likely case-sensitive.
+</ul> 
+<p>
+<h2><a name="XCOMP/2 download"></a>XCOMP/2 download</h2>
+<p>
+You are welcome to download
+<a href="http://www.geocities.com/SiliconValley/Pines/7885/Download/XComp2v310.zip">XCOMP/2 V3.10</a>,
+which includes the OS/2 version and WIN32 port of XCOMP/2 and ISOCOMP/2
+(inclusive its source written with VisualAge C++) from this site.
+You should also be able to find it on sites connected with a higher
+bandwidth like e.g.<a href="http://hobbes.nmsu.edu/">Hobbes</a>.
+<p>
+<p>
+<h2><a name="XCOMP/2 source code"></a>XCOMP/2 source code</h2>
+<p>
+XCOMP/2 includes the complete source code to recompile it.
+Just run <em>Protect xcomp2v310 Source.zie</em> to obtain the source 
+code archive <b>Source.zip</b> out of the encrypted file <b>Source.zie</b>.
+<p>
+Note: <font color="Red">You have to have access to an OS/2 PC to decrypt the 
+encrypted source code archive, because I provide the decryption executable only for OS/2.
+These tools are for OS/2 users who are forced to used Windows sometimes, but
+not for users that uncritically help to extend the power of the evil's empire 
+monopoly!</font>
+<p>
+Then just unzip <b>Source.zip</b>, preferably at the path you want
+to compile XCOMP/2 from, both for OS/2 and WIN32 source code and
+the WIN32 executables.
+<p>
+To compile XCOMP/2 for OS/2 you need:
+<ul>
+<li>IBM VisualAge C++ V3.6 CSD2 for OS/2 (or equivalent)
+<li>IBM OS/2 Warp Toolkit V4.5 (or equivalent)
+<li>just type <b>NMAKE ["NODEBUG=1"]</b>
+</ul>
+<p>
+To compile <a href="WIN32/XCompWin32.html">XCOMP/2 for WIN32</a> you need:
+<ul>
+<li>IBM VisualAge C++ V3.6 FP2 for Windows NT (or equivalent)
+<li>MS SDK included in IBM VisualAge C++ V3.6 (or equivalent)
+<lu>just type <b>cd WIN32</b> followed by <b>NMAKE ["NODEBUG=1"]</b>
+</ul>
+<p>
+<hr size=5>
+(C) <a href="mailto:Roman_Stangl@at.ibm.com">Roman Stangl</a> (Roman_Stangl@at.ibm.com), 18.07.2000
+<br>
+Last update: 21.05.2002
+</body>
+</html>
+

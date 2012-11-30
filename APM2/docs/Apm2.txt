@@ -1,0 +1,42 @@
+******************************************************************************
+                                  Announcing
+
+                            APM/2 Version 1.40 for
+                               IBM OS/2 Warp 4
+       Copyright (C) by Roman Stangl (rstangl@vnet.ibm.com) 1997, 1998
+
+******************************************************************************
+
+Dear User!
+
+For a English and German description of APM/2 please take a look into the file
+READ.ME. Alternatively you may browse the English APM2.HTML document.
+
+Change history:
+
+1.30:   *) APM/2 now includes a APM.SYS version 1.2 conforming toolkit that 
+           allows you to write your own APM applications.
+        *) APM/2 allows you to restore the pre-APM request state with /Ready
+        *) APM/2 configuration option (/Verbose) enhanced
+        *) APM/2 now displays possible errors more accurately
+        *) APM/2 now supports the APM 1.2 automatic power on timer
+        *) APM/2 now allows you to schedule APM requests
+        *) APM/2 now NLS enabled by just creating a APMxx.txt/APMxx.msg file
+
+1.40:   *) Fixed that message at line 424 was displayed without having been
+           completed by the required parameter (DosDevIOCtl() return code).
+        *) Fixed that when running on a non Us or Gr installation that each
+           message got prefixed by a message stating that the NLS message
+           could not be found and the Us one is taken instead.
+           Now, if no /Language option is specified, the Us messagefile is
+           taken silently when no NLS messagefile was found, if /Language
+           was specified but the file doesn't exist, a single message informs
+           the user about that and that from now on the Us one will be taken.
+        *) Fixed minor spelling and layout mistakes in English and German
+           message files.
+        *) Added Russian NLS messages, thanks very much to Andres Phillippov
+           for the translation.
+
+Have fun! Roman
+
+

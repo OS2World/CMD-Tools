@@ -1,0 +1,516 @@
+<!doctype html public "-//IETF//DTD HTML 3.2//EN">
+<html>
+<head>
+<center><title>The official ISOCOMP/2 home page</title></center>
+<meta name="description" content="Official ISOCOMP/2 homepage">
+<meta name="keywords" content="Roman Stangl, ISOCOMP, recurisve file comparison, OS/2, official release">
+<meta name="owner"    content="Roman_Stangl@at.ibm.com">
+<meta name="review"   content="21.05.2002">
+<meta name="security" content="public">
+</head>
+<body background="Os2Warp.gif">
+<h1>The ISOCOMP/2 home page</h1>
+<font Face="Helv,Helvetica,Arial">
+<p>
+<h2>What is ISOCOMP/2</h2>
+<p>
+Welcome to the home of <em>ISOCOMP/2</em>, an ISO (and RAW and RSJ track) image 
+comparison utility, part of the <em><a href="XComp.html">XCOMP/2</a></em> package.
+A port for <a href="WIN32/IsoCompWin32.html">WIN32</a> is also available 
+(for those who are sometimes forced to use Windows, but you need OS/2
+to get access to that port!)..
+<p>
+When invoking ISOCOMP.EXE without commandline arguments, the help is displayed:
+</font>
+<xmp>
+ISOCOMP/2 - The ISO image file compare utility for OS/2, V1.20
+
+            (C) Roman Stangl 05, 2002 (Roman_Stangl@at.ibm.com)
+            http://www.geocities.com/SiliconValley/Pines/7885/
+
+Use the ISOCOMP command to compare the contents of a Source CD-ROM with the
+contents of a Target CD-ROM or with an ISO, RAW or RSJ track image file.
+Or you can create an ISO image or RSJ track image file out of a CD-ROM.
+
+Syntax:
+  ISOCOMP Source(CDROM-drive:|[drive:\|\\server\][path\]ISO|RAW-file)
+        Target(CDROM-drive:|[drive:\|\\server\][path\]ISO|RAW-file)
+        [/!MP] [/LOG[:[drive:\|\\server\][path\]file]] [/P] [/TINY]
+        [/CHK:drive:\|\\server\][path\]file]
+  ISOCOMP CDROM-drive: | CDROM-drive:|[drive:\|\\server\][path\]ISO|RAW-file
+        [/!MP] [/LOG[:[drive:\|\\server\][path\]file]] [/P] [/TINY]
+        [/CHK:[drive:\|\\server\][path\]file]
+Where:
+  Source(CDROM-drive:|[drive:\|\\server\][path\]ISO|RAW-file)
+                 Specifies either the Source drive letter (e.g. Z or Z:) of
+                 your CD-ROM drive containing a data CD-ROM, or the location
+                 and name of a Source ISO, RAW or RSJ track image file, whose
+                 contents you want to compare with a media in your Target
+                 CD-ROM drive or to compare it with or write from an ISO image
+                 or RSJ track image file.
+                 You may specify a fully qualified path or UNC path.
+  Target(CDROM-drive:|[drive:\|\\server\][path\]ISO|RAW-file)
+                 Specifies either the Target drive letter (e.g. Z or Z:) of
+                 your CD-ROM drive containing a data CD-ROM, or the location
+                 and name of a Target ISO, RAW or RSJ track image file. If
+                 the image file does not exist, it will be created out of the
+                 CD-ROM contents, otherwise compared with the CD-ROM contents
+                 (Only ISO or RSJ track image files will be created).
+                 You may specify a fully qualified path or UNC path.
+  [/!MP]
+                 Specifies that only 1 thread is used reading the CD-ROM
+                 contents and the image file instead of the default of 2
+                 threads.
+  [/LOG[:[drive:\|\\server\][path\]file]]
+                 Specifies that ISOCOMP/2 logs all problems into a file
+                 specified either by this parameter, or by the ISOCOMP
+                 environment variable or into ISOCOMP.LOG (put into the
+                 directory ISOCOMP/2 was installed into) otherwise.
+  [/P]
+                 Request ISOCOMP/2 to pause when it has finished.
+  [/TINY]
+                 2 64kB buffers are used instead of a percentage of total RAM.
+  [/CHK:[drive:\|\\server\][path\]file]
+                 Specifies that ISOCOMP/2 uses a checksum file to ensure data
+                 integrity. If the checksum file does not exist, it will be
+                 created, otherwise compared with the checksum calculated
+                 from the data read from the Source.
+Returns:
+  0              Successful completion
+  100+           Fatal, unrecoverable exceptions
+
+ISOCOMP101: Too few commandline arguments specified.
+</xmp>
+<font Face="Helv,Helvetica,Arial">
+<p>
+Well, above explanation should be self explanatory.
+ISOCOMP/2 assumes that an ISO image file (2048 Bytes/Sector) has been specified
+unless a file has the extensions:
+<ol>
+<li><b>.RAW</b> or <b>.BIN</b>, in that case it will assume that a RAW image file
+(2352 Bytes/Sector) has been specified.
+If those extensions are not give, ISOCOMP/2 tries to determine the format from
+the file size (that is, if the file contains a non-fractional number of RAW 
+sectors and only a fractional number of ISO sectors, the file is assumed to be
+in RAW format)
+<br>
+Note, that RAW image files can only be read not written, and ISOCOMP/2 only
+uses the ISO data within it (for comparing or checksum calculation).
+<li><b>.RSJ</b> or <b>.TRK</b>, in that case it will assume that a RSJ track 
+image file has been specified.
+</ol>
+As the format of a RSJ track image file is not published, I had to do some
+reverse engineering which currently works, but there is no guarantee that
+RSJ won't change it.
+ISOCOMP/2 of course validates the signature in an RSJ track image to be
+sure it really is a RSJ track image file.
+<p>
+There are basically 2 variations for the commandline:
+<ul>
+<li>The first which allows you to
+create a Target ISO image or RSJ track image file out of the contents of a
+Source CD-ROM data media or ISO image or RSJ track image file.
+You therefore have to specify the location of the Source and Target data.
+<li>The second allows you either to compare the CRC32 and MD5 checksums of the 
+contents of a CD-ROM data media or ISO or RAW image or RSJ track image file or
+to calculate the CRC32 and MD5 checksums.
+Thus you only need to specify the location of the Source data then.
+</ul>
+Just to avoid any misunderstanding, you can compare the contents of medias
+in a Source and Target CD-ROM drive, but of course ISOCOMP/2 can't write
+onto a Target CD-ROM only into a target image (ISO or RSJ) file.
+<p>
+A sample run to compare the contents of a CD-ROM media with the ISO image file
+it was burnt from may output (though we are comparing ISO images, we refer
+to it as being a file, because OS/2 treats them that way):
+</font>
+<xmp>
+[0: H:\programming\xcomp]IsoComp Q: O:Cd.iso
+
+Comparing ISO image
+  from Source CD-ROM (2048 Bytes/Sector) Q:
+  with Target file   (2048 Bytes/Sector) O:\Cd.iso
+using 4194304 bytes buffer size (2048 sectors)
+
+ISOCOMP001: Comparison ended successfully
+ISOCOMP002: Throughput Source 607kB/s, Destination 1948kB/s, Total 1191kB/s
+ISOCOMP003: Source CRC32 checksum: D00CF2A5
+ISOCOMP004: Source MD5 checksum  : 24FA3C723F216C0A4F117AE400B1F057
+</xmp>
+<font Face="Helv,Helvetica,Arial">
+<p>
+Another example to compare the contents of a CD-ROM media with the RAW image
+file it was burnt from:
+</font>
+<xmp>
+[0: H:\programming\xcomp]IsoComp Q: O:Cd.raw
+
+Comparing ISO image
+  from Source CD-ROM (2048 Bytes/Sector) Q:
+  with Target file   (2352 Bytes/Sector) O:\Cd.raw
+using 4194304 bytes buffer size (2048 sectors)
+
+ISOCOMP001: Comparison ended successfully
+ISOCOMP002: Throughput Source 607kB/s, Destination 899kB/s, Total 1191kB/s
+ISOCOMP003: Source CRC32 checksum: D00CF2A5
+ISOCOMP004: Source MD5 checksum  : 24FA3C723F216C0A4F117AE400B1F057
+</xmp>
+<font Face="Helv,Helvetica,Arial">
+<p>
+Or, another example to compare the contents of 2 medias in 2 CD-ROM drives:
+</font>
+<xmp>
+[0: H:\programming\xcomp]IsoComp Q R
+
+Comparing ISO image
+  from Source CD-ROM (2048 Bytes/Sector) Q:
+  with Target CD-ROM (2048 Bytes/Sector) R:
+using 4194304 bytes buffer size (2048 sectors)
+
+ISOCOMP001: Comparison ended successfully
+ISOCOMP002: Throughput Source 607kB/s, Destination 899kB/s, Total 1191kB/s
+ISOCOMP003: Source CRC32 checksum: D00CF2A5
+ISOCOMP004: Source MD5 checksum  : 24FA3C723F216C0A4F117AE400B1F057
+</xmp>
+<font Face="Helv,Helvetica,Arial">
+<p>
+Or finally, an example on how to view the checksums for the contents of
+a CD-ROM media:
+</font>
+<xmp>
+[0: H:\programming\xcomp]IsoComp Q
+
+Calculating CRC32 and MD5 checksums
+  from Source CD-ROM (2048 Bytes/Sector) Q:
+using 4194304 bytes buffer size (2048 sectors)
+
+ISOCOMP001: Checksum calculations ended successfully
+ISOCOMP002: Throughput Source 604kB/s
+ISOCOMP003: Source CRC32 checksum: D00CF2A5
+ISOCOMP004: Source MD5 checksum  : 24FA3C723F216C0A4F117AE400B1F057
+</xmp>
+<font Face="Helv,Helvetica,Arial">
+<p>
+One note about the line containing the <b>Throughput</b> measurements.
+Above example shows about 607kB/s throughput on the <b>Source</b> CD-ROM
+drive, which says the CD-ROM is performing at a speed of about 4x (a
+througput of 150kB/s is rated as 1x speed).
+4x seems to be a little bit low for today's CD-ROM drives, but the 
+media used was a CD-RW media, and writeable or especially rewriteable medias tend
+to be much slower than mastered CD medias, for both reading and burning (for factory
+mastered medias you should get the top performance of your drive)!
+<p>
+The performance given for <b>Source</b> and <b>Destination</b> is just the 
+raw performance of the OS/2 <b>DosRead()</b> APIs without accounting for 
+overhead of the comparims itself (for the CD-ROM drive that gives you
+a good hint about the raw performance of your CD-ROM drive, e.g. if you
+have a 32x drive and use factory mastered medias, you should get near to a
+32x speed).
+The Total performance does include all overhead, that is the timer is started
+when the files are opened and stopped when they have been compared.
+Thus, don't take the performance specified too serious!
+<p>
+ISOCOMP/2 is a multithreaded application, that is the <b>Source</b> and
+<b>Target</b> file are read by different threads concurrently to speed up
+performance.
+As usually you won't compare an ISO image from the contents of a CD-ROM drive 
+with the image stored as a file on the same drive (if you could do that, you
+might already be within the singularity of a black hole ;-) this is a default 
+option, however you can force ISOCOMP/2 to use only 1 thread by the </!MP> 
+commandline option.
+<p>
+You may also notice that you may have a different buffer size.
+This is normal, because ISOCOMP/2 takes the amount of physical memory into
+account to be efficient on one hand and to limit swapping on the other hand.
+Using the option <b>/TINY</b> ISOCOMP/2 will use 2 64kB buffers instead of a
+percentage of the RAM installed.
+This might be useful if you are running a memory constraint system (or a last
+resort on buggy drivers, that can't partition the buffer in multiple 64kB
+DMA requests).
+<p>
+Finally, to ensure that you can notice the progress, a percentage indicator,
+and if required a retry counter, will be displayed while comparing ISO images 
+that are larger than the given buffer size.
+<p>
+When comparing using CD, CD-R or CR-RW media (increasing probability in
+this sequence), you may get alarmed by miscompares which disappear 
+during one of the retries or when running ISOCOMP/2 once again.
+I'm not sure what causes that, but from my experience I suspect that misreads 
+of the drive (e.g. weak bits) occurred (when thinking about the requirements
+of the hardware regarding the exact timing and positioning of the head for writing
+one bit, increased by the use of some media like e.g. 700 MB CD-R/CD-RWs,
+800 MB CD-Rs and high-speed CD-RWs, on surfaces that are indeed sensitive 
+to scratches, to I'm not really surprised.
+Reading the same files again may just cause different read results due to the
+drive's head repositioning in a different way, ISOCOMP/2 does reposition the
+head automatically during its retries, to ensure best results.
+You may also get different results for different drives, as a rule of thumb
+I thing the more modern a drive, the lesser the number of problems you'll get.
+<p>
+<h2>Examples</h2>
+<p>
+Assume that our CD-ROM drive is located at drive letter Q:
+<p>
+<table BORDER=2 CELLSPACING=2 CELLPADDING=2 WIDTH="100%" >
+<tr>
+<td WIDTH="40%"><center>Command</center></td>
+<td WIDTH="60%"><center>Resulting comparison from ISOCOMP/2</center></td>
+</tr>
+<tr>
+<td><xmp>ISOCOMP Q: O:\Cd.Iso</xmp></td>
+<td>
+<xmp>
+Creating ISO image file
+  from Source CD-ROM (2048 Bytes/Sector) Q:
+  into Target file   (2048 Bytes/Sector) O:\Cd.Iso
+using 4194304 bytes buffer size (2048 sectors)
+
+ISOCOMP001: ISO image created successfully
+</xmp>
+An ISO image is written into the file O:\Cd.iso from the contents of the
+CD-ROM drive Q:, because the Target file O:\Cd.iso did not exist before.
+<br>
+ISOCOMP/2 thus allows you also to create an ISO image file out of the 
+contents of a CD-ROM.
+</tr>
+<tr>
+<td><xmp>ISOCOMP Q: O:\Cd.Trk</xmp></td>
+<td>
+<xmp>
+Creating RSJ track image file
+  from Source CD-ROM (2048 Bytes/Sector) Q:
+  into Target file   (2048 Bytes/Sector) O:\Cd.Trk
+using 4194304 bytes buffer size (2048 sectors)
+
+ISOCOMP001: ISO image created successfully
+</xmp>
+An RSJ track image is written into the file O:\Cd.trk from the contents of the
+CD-ROM drive Q:, because the Target file O:\Cd.trk did not exist before.
+<br>
+ISOCOMP/2 thus allows you also to create an RSJ track image file out of the 
+contents of a CD-ROM too.
+</tr>
+<tr>
+<td><xmp>ISOCOMP Q O:\Cd.Iso</xmp></td>
+<td>
+<xmp>
+Comparing ISO image
+  from Source CD-ROM (2048 Bytes/Sector) Q:
+  with Target file   (2048 Bytes/Sector) O:\Cd.Iso
+using 4194304 bytes buffer size (2048 sectors)
+
+ISOCOMP001: Comparison ended successfully
+</xmp>
+As the Target ISO image file O:\Cd.Iso had been previously created out of the contents
+of the CD-ROM drive Q: and we have burnt a new CD-ROM from it, hopefully we'll
+always get the success as in this example. 
+</tr>
+<tr>
+<td><xmp>ISOCOMP Q: R:</xmp></td>
+<td>
+<xmp>
+Comparing ISO image
+  from Source CD-ROM (2048 Bytes/Sector) Q:
+  with Target CD-ROM (2048 Bytes/Sector) R:
+using 4194304 bytes buffer size (2048 sectors)
+
+ISOCOMP001: Comparison ended successfully
+</xmp>
+As the Target specified is also a CD-ROM drive, the contents of the media in the
+Source CD-ROM drive will be compared with the contents of another (possibly
+copied) media in the Target CD-ROM drive.
+<br>
+If the comparison succeeds, you have an exact 1:1 copy.
+</tr>
+<tr>
+<td><xmp>ISOCOMP Q</xmp></td>
+<td>
+<xmp>
+Calculating CRC32 and MD5 checksums
+  from Source CD-ROM (2048 Bytes/Sector) Q:
+using 4194304 bytes buffer size (2048 sectors)
+
+ISOCOMP001: Checksum calculations ended successfully
+</xmp>
+As no Target is specified, ISOCOMP/2 knows that you're only interested in the
+calculation or the CRC32 and MD5 checksums.
+The checksum is made of the ISO image only, even if you had specified a RSJ
+track image file (in other words the RSJ header is not part of the checksums).
+<br>
+If you have downloaded an ISO image from the Internet and the checksums were
+also given there, you could verify that your download had no bit errors 
+(though for both FTP and writing the file onto media this is very unlikely,
+you can be sure).
+</tr>
+<tr>
+<td><xmp>ISOCOMP O:\Cd.iso O:\Cd.rsj</xmp></td>
+<td>
+<xmp>
+Creating RSJ track image file
+  from Source CD-ROM (2048 Bytes/Sector) O:\Cd.iso
+  into Target file   (2048 Bytes/Sector) O:\Cd.rsj
+using 4194304 bytes buffer size (2048 sectors)
+
+ISOCOMP001: ISO image created successfully
+</xmp>
+ISOCOMP/2 allows you also to write an RSJ track image file out of an ISO image
+file and vice versa.
+<br>
+It's your decision if that's really useful, as you need about twice the disk
+space.
+</tr>
+</table>
+<p>
+If you found any problem or have a suggestion, please don't hesitate to tell me.
+<p>
+<h2>A few words about ISO images</h2>
+<p>
+An ISO image is just the datastream in a single file that makes up the
+contents of a CD-ROM session from the beginning to the end.
+An ISO image thus is a way to save and/or transmit the contents of a CD-ROM without
+any data loss.
+In contrast to that, you could create of course another CD-ROM out of the files
+contained on a CD-ROM, but that way you may miss probably some information of the
+original CD-ROM (e.g. the capability to boot, or some information MS
+supposedidly has written on their Windows XP CD-ROMs to track warez copies).
+<p>
+If you have only an ISO image (e.g. downloading an ISO image is the way IBM has 
+made available the Aurora and Merlin Convenience Pack 2 CD-ROMs to its employees
+a few weeks before the official release via Software Choice - thanks at this
+place for that service!),
+you can't be easily sure that the contents of the CD-ROMs you've burnt are really
+exactly the same as the source ISO image.
+That was the motivation for me (and my experience of having burnt CD-ROMs that
+contained errors) to write ISOCOMP/2 (in fact comparing the newly burnt CD-Rs
+of ACP2/MCP2 with the ISO image files downloaded was the first productive
+use of an ISOCOMP/2 prototype).
+<p>
+One way to compare the file contents of a burnt CD-ROM with the original ISO image is
+using Linux and the <b>loopback device</b> to mount the ISO image as a filesystem, and
+then using normal filesystem tools to do the comparison.
+Similar tools also exist for Windows.
+<p>
+Under OS/2 you could use the <b>ISO image</b> and <b>RSJ track image</b> plugins from
+<b>NetDrive</b> (available e.g. on <a href="http://hobbes.nmsu.edu/">Hobbes</a>) to mount the 
+ISO image (or RSJ track image) file as a filesystem, and then use e.g. XCOMP/2 to do 
+the comparison of the file contents.
+<p>
+Again, both methods only allow you to ensure that the file contents are equivalent,
+but not information that is stored on a CD-ROM outside the filesystem!
+ISOCOMP/2 allows you to compare everything, on success you can be sure to have a
+1:1 copy!
+<p>
+<h2>A few words about RAW images</h2>
+<p>
+A RAW image consists of an ISO image enhanced by data that is usually filled in by
+the CD-Recorder during recording.
+A RAW sector looks like:
+</font>
+<xmp>
+    [12 bytes Sync][4 bytes Header][2048 bytes ISO sector][288 bytes EDC/ECC]
+</xmp>
+<font Face="Helv,Helvetica,Arial">
+<p>
+As you can see, a RAW sector can be converted into an ISO sector and vice versa,
+though ISOCOMP/2 only supports the direction RAW to ISO (as I don't know how
+the Sync and EDC/ECC is calculated and I'm not sure if supporting that would make
+sense at all).
+<p>
+You likely will encounter RAW image files, if the image you'll burn should be an
+exact copy of the original one, because if the CD-Recorder does not calculate the
+EDC/ECC data itself, it will even burn errors (which may be used as a copy
+protection measure).
+You'll likely find CD images in RAW format in the alt.binaries.warez.*
+newsgroups.
+<p>
+Under OS/2 you write RAW image files with <b>CDRDAO</b>, which is also available
+on <a href="http://hobbes.nmsu.edu/">Hobbes</a>.
+<p>
+<h2>ISOCOMP/2 limitations</h2>
+<p>
+As I haven't yet found a (free) source for the specification of data CD-ROMs, that
+is the ISO 9660 specification, ISOCOMP/2 relies that the format and behaviour for
+data ISO image files is consistent to what I've seen in my own environment.
+However, <b>some of my assumptions may be wrong</b>!
+<p>
+Basically, I assume, that:
+<ul>
+<li>only data CD-ROMs are usuable for ISOCOMP/2
+<li>a data sector of a data CD-ROM always is exactly 2048 bytes in size.
+<li>the size of an <b>ISO image file</b> is an exact multiple of 2048 bytes.
+<li>the size of an <b>RAW image file</b> is an exact multiple of 2352 bytes,
+and only the ISO contents will be used then.
+<li>the contents of an ISO, RAW or RSJ track image file were exactly burnt onto 
+a CD-R/CD-RW, regardsless what program has been used. 
+<li>a <b>RAW image file</b> either has the extension <b>*.RAW</b> or <b>*.BIN</b> or
+is a multiple of 2352 bytes and not fractionless divisible by 2048
+<li>a <b>RSJ track image file</b> is a normal ISO image file that is prefixed
+by a exactly 40 bytes sized RSJ header.
+The current 3.xx version of RSJ behaves that way, but as this is not documented
+officially AFAIK, there is no guarantee that it will forever that way.
+<li>a RSJ track image has the extension <b>*.TRK</b> or <b>*.RSJ</b> and/or
+contains the contents usually seen in an RSJ header.
+<li>an ISO image consists of all sectors one can read from a CD-ROM burnt
+(regardless what program has been used) out of it and vice versa.
+<br>
+That is, if the ISO image file is 31415 sectors in size, then also exactly 
+31415 sectors are expected to be readable on the CD-ROM media (using the OS/2 APIs).
+The ISO image file size must be 64337920 that is 31415*2048.
+</ul>
+<p>
+If you know some additional information about ISO images and want to share
+it or want me to enhance ISOCOMP/2, you're welcome to
+<a href="mailto:Roman_Stangl@at.ibm.com">e-mail me</a>!
+<p>
+<h2>What's new</h2>
+<p>
+The following items have changed between V1.20 and its predecessor 1.10:
+<ul>
+<li>Added the support to read the ISO contents of RAW image files, so you can
+compare the contents of a CD burnt with the RAW image file it was burnt from
+(though as said only the ISO contents).
+</ul>
+<p>
+The following items have changed between V1.10 and its predecessor 1.00:
+<ul>
+<li>Fixed that ISOCOMP/2 displayed an error when creating an ISO image
+or RSJ track image file.
+<li>Added support for RSJ's CDWFS, but that didn't work as a drive attached
+by RSJ can't be opened in DASD (Direct Access Storage Device) mode (most
+likely because RSJ drives are attached like network drives).
+Unfortunately that means I have to remove that support again (but you
+still can use CDRecord's READCD.EXE to dump a media directly using SCBs
+(SCSI Control Blocks)). 
+<li>Added the option <b>/P</b> to pause ISOCOMP/2 on exit.
+<li>Added a dump of possible memory leaks when compiled in Debug mode.
+<li>Changed the stack size from 64kB to 512kB to avoid possible (but
+very unlikely) stack shortages.
+</ul>
+<p>
+<h2>CRC32 and MD5 checksum logic</h2>
+<p>
+The calculation of CRC32 and MD5 checksums is based on what that seems to be
+the standard algorithm used on the Internet.
+As I'm certainly not an expert in cryptology, and thus can't tell how good 
+the quality of the CRC32 and MD5 checksums is (AFAIK it's rather good) , I
+used the sample codes I found on the Internet after a little searching
+as a starting point.
+<p>
+The CRC32 implementation I dereived from some freely available sample codes, 
+the MD implementation is derived from the <b>RSA Data Security, Inc. MD5 Message-Digest 
+Algorithm</b> sample implementation, which is also freely available if above 
+identification is included on materials based on it.
+<p>
+<h2>ISOCOMP/2 download</h2>
+<p>
+ISOCOMP/2 is part of the <a href="XComp.html#XCOMP/2 download">XComp/2</a>
+toool, which you can also download from 
+<a href="http://www.geocities.com/SiliconValley/Pines/7885/Download/XComp2v310.zip">my site</a>.
+<p>
+<hr size=5>
+(C) <a href="mailto:Roman_Stangl@at.ibm.com">Roman Stangl</a> (Roman_Stangl@at.ibm.com), 16.12.2001
+<br>
+Last update: 21.05.2002
+</body>
+</html>
+

@@ -1,0 +1,134 @@
+;**********************************************************************
+;                                CPU/2
+;             Copyright (C) by Roman Stangl, 1998, 2000
+; This Code may be freely distributed, provided the Copyright isn't
+; removed, under the conditions indicated in the documentation.
+;
+; CPUxx.txt    NLS messages file, to support another language create
+;              a copy of this file containing translated messages and
+;              replace xx (for example) by:
+;                  Us ... for US English
+;                  Gr ... for German
+;                  Fr ... for French
+;              And then run the application with the commandline option
+;              -Language Gr (for German,...). 
+;
+; Note: Translation just needs to begin with message 3, messages 0 to 2
+;       are reserved
+;
+; Note: The formatting done here is reflected in the actual output of
+;       the message, so I recommend to keep empty lines and the column
+;       width (just keep the shipped message source file as a template)
+;
+;**********************************************************************
+;
+CPU
+CPU0000?:
+CPU0001I: I The NLS messagefile %s does not exist.
+          Please correct that problem,  for now the English messagefile will be
+          used instead!
+CPU0002?:
+CPU0003I: X
+CPU/2 V1.10 - UP and MP CPU Utility/2 for OS/2
+Copyright (C) by Roman Stangl, 1998, 2000 (Roman_Stangl@at.ibm.com)
+                 http://www.geocities.com/SiliconValley/Pines/7885/
+
+CPU0004I: X CPU/2 allows you to query or  setting the processor status  on supported single
+(UP ... uniprocessor)  or  multiprocessor (MP ... multiprocessor)  systems.  It
+also  allows  you to measure  the processor  utilitzation  for  both  UP and MP
+configurations.
+
+This program is Freeware (and can be freely distributed, as long as the archive
+is kept complete), however you must not port it to  any of the inferior Windows
+platforms!
+
+CPU0005I: I Insufficient commandline options specified.
+
+Syntax: CPU /?
+Where:  /? ... display help
+
+Returns:
+        0 .... Successful completion
+        1+ ... Fatal, unrecoverable exception
+
+CPU0006I: I Commandline options:
+
+CPU0007I: X Syntax: CPU Request [Language]
+
+Where:  Request  ... /Verbose     to query the processor status
+                 ... /Online x    to set processor number x to online status
+                 ... /Offline x   to set processor number x to offline status
+                 ... /Performance to activate Performance measurements
+
+        Language ... /Language xx to display NLS messages out of CPUxx.msg
+                                  (e.g. GR for German)
+
+CPU0008E: E Required parameter "Request" not specified or invalid.
+
+CPU0009E: E Ambiguous parameters specified for "Request".
+
+CPU0010E: E Error while  dynamically loading the  Processor Status  APIs.  Likely
+you are using a non-SMP capable OS/2 version,  which does not export the Kernel
+APIs DosGetProcessorStatus() und DosSetProcessorStatus().
+
+Note: The options /Verbose, /Online and /Offline can't be used thus.
+
+CPU0011E: E Error  while  dynamically  loading the  Performance Meassurement API.
+Most Likely you are using a OS/2 version not supporting that function  (likely
+an older version,  for which the API  DosPerfSysCall()  is not supported yet).
+Applying the latest fixpack likely adds the support.
+
+Note: The option /Performance can't be used thus.
+
+CPU0012E: E Error querying the  number of installed processors.  Most likely  you
+are using a OS/2 version not supporting that function (likely an older version,
+for which the  API  DosQuerySysInfo(QSV_NUMPROCESSORS) is not yet supported).
+
+Note: The options /Verbose, /Online and /Offline can't be used thus.
+
+CPU0013I: I Current status of the installed processors:
+CPU0014I: X           Processor $$2ld online
+CPU0015I: X           Processor $$2ld offline
+CPU0016I: X
+CPU0017E: E Error SYS$$04d reading processor $$2ld status.
+
+CPU0018E: E An  unexpected error occurred while reading a  processor status, this
+error should not  occur as  it  would mean  that a processor's  status can't be
+queried though it was detected during booting of OS/2.
+
+CPU0019I: I Status change requested for not installed processor $$2ld. Please ensure
+that  your request  stays  within  the  supported  range  from  prozessor 1  to
+processor $$2ld.
+
+CPU0020E: E Please  ensure that  parameters are within the valid ranges. A status
+change for processor 1 for example is not possible!
+
+CPU0021E: E The requested status change was not successful. Please retry it again
+later.
+
+CPU0022I: I Error $$04ld setting processor $$2ld status.
+
+CPU0023I: I The  request for a processor  status  change  was successful, however
+reading the processor status again showed no status change.
+
+CPU0024I: I Please  press  the  Space-Bar  to  quit displaying  the relative  CPU
+utilization, divided by the following items:
+
+In the format of: CPU x ( aa/ bb/ cc), where
+
+x    ... Processor (x)
+Idle ... Amount of Idle-time (aa)
+Busy ... Amount of Busy-time (bb)
+Intr ... Amount of Interrupt-time (cc)
+ 
+CPU0025I: P CPU$$2ld ($$3ld/$$3ld/$$3ld)
+
+CPU0026I: X 
+
+CPU performance measurement terminated due to user request.
+
+CPU0027E: E Unexpected  error while querying  CPU utilization.  If this is a per-
+sistent problem most likely it is a bug in CPU/2, if the problem appears inter-
+mittendly a OS/2 Kernel bug is also imaginable.
+
+

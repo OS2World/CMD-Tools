@@ -1,0 +1,30 @@
+  XCOMP/2 V3.10 for OS/2
+Copyright (C) by Roman Stangl May, 2002
+
+XComp/2 is a multithreaded recursive file compare utility. This
+may be usefuly to compare copied directories, especially after
+burning them onto CD-ROM medias. Additionally XComp/2 allows you
+to calculate and compare the CRC32 and MD5 checksums for the 
+files to ensure their integrity even when no longer having the
+original data.
+
+Also included is IsoComp/2, a multithreaded ISO image compare
+utility, that allows to to compare the contents of a CD-ROM
+media with an ISO or RAW image or RSJ track image file or to 
+write an ISO image or RSJ track image out of the media's contents. 
+CRC32 and MD5 checksums are also supported.
+
+Source code (and WIN32 port) is included in (an encrypted,
+run "protect xcomp2v310 Source.zie" to decrypt it) archive.
+
+For more detailed information, please take a look at my site at:
+    http://www.geocities.com/SiliconValley/Pines/7885/
+or the shorter alias:
+    http://www.geocities.com/warpguru/
+or E-mail me at:
+    Roman_Stangl@at.ibm.com
+
+Warning! This program and its source are provided as-is, I 
+shall not be held responsible for any damages!
+
+Filename: XComp2v310.zip

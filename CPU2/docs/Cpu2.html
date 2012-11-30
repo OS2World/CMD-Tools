@@ -1,0 +1,203 @@
+<!doctype html public "-//IETF//DTD HTML 3.2//EN">
+<html>
+<head>
+<center><title>The official CPU Utility/2 home page</title></center>
+<meta name="description" content="Official CPU/2 homepage">
+<meta name="keywords" content="Roman Stangl, CPU/2, CPU Utility/2, SMP, processor, symmetric multiprocessing, official release">
+<meta name="owner"    content="Roman_Stangl@at.ibm.com">
+<meta name="review"   content="17.02.2000">
+<meta name="security" content="public">
+</head>
+<body background="../Images/Os2Warp.gif">
+<h1>The CPU Utility/2 home page</h1>
+<p>
+Welcome to the home of <em>CPU Utility/2</em> or shorter just <em>CPU/2</em>, a 
+Freeware utility that allows you either to toggle processors on your OS/2 SMP workstation
+from Online to Offline (and vice versa) or to display the relative CPU utilization for the busy,
+idle and interrupt states per CPU on your OS/2 Warp Server Adv. SMP, Warp 4 
+and Warp Server for e-Business (WSeB, Aurora) (and likely Warp 3
+with some recent fixpacks) workstations.
+<h2>News</h2>
+<em>CPU/2</em> has been updated to version 1.10. It will now display the correct
+values under Warp Server for e-Business (WSeB, Aurora).
+Special thanks to Scott E. Garfinkle (seg) for telling me how to initialize the
+performance counters correctly (that info is just missing in the Warp Toolkit
+V4.5). 
+<h2>Description of CPU/2</h2>
+If you have installed OS/2 Warp Server Advanced SMP, then you likely have noticed
+that it includes the <em>MPCPUMON</em> utility, which allows you to toggle your
+processors from Online to Offline (and vice versa) and displays a CPU utilization
+graph, which gives you per processor information about how busy (ranging from 0 to
+100 percent) your PC is.
+<p>
+I wrote CPU/2, because:
+<ul>
+<li>I was interested in the OS/2 APIs required to make such a program
+<li>MPCPUMON is a PM program and thus can't be run in a batch job or from a remote
+telnet session
+<li>the CPU utilitzation shows very often unexplainable "spikes" even on an idle 
+running system
+<li>the CPU utilization measurement logic could now easily be added to a Windows NT
+look-alike Task Manager
+</ul>
+<p>When invoking <em>XCOMP</em> without commandline arguments, the help
+is displayed:
+<xmp>
+
+CPU/2 V1.10 - UP and MP CPU Utility/2 for OS/2
+Copyright (C) by Roman Stangl, 1998, 2000 (Roman_Stangl@at.ibm.com)
+                 http://www.geocities.com/SiliconValley/Pines/7885/
+
+CPU/2 allows you to query or  setting the processor status  on supported single
+(UP ... uniprocessor)  or  multiprocessor (MP ... multiprocessor)  systems.  It
+also  allows  you to measure  the processor  utilitzation  for  both  UP and MP
+configurations.
+
+This program is Freeware (and can be freely distributed, as long as the archive
+is kept complete), however you must not port it to  any of the inferior Windows
+platforms!
+
+CPU0005I: Insufficient commandline options specified.
+
+Syntax: CPU /?
+Where:  /? ... display help
+
+Returns:
+        0 .... Successful completion
+        1+ ... Fatal, unrecoverable exception
+
+</xmp>
+The return code is the nummeric value of the exception for which CPU/2 has displayed
+and error message CPUxxxxy (where xxxx is the return code and y is the type of the
+exception, which includes <em>I</em>nformational and <em>E</em>rror messages).
+<p>
+CPU/2 will display information about its required and optional parameters when you
+invoke <em>CPU /?</em>.
+<xmp>
+
+CPU/2 V1.10 - UP and MP CPU Utility/2 for OS/2
+Copyright (C) by Roman Stangl, 1998, 2000 (Roman_Stangl@at.ibm.com)
+                 http://www.geocities.com/SiliconValley/Pines/7885/
+
+CPU0006I: Commandline options:
+
+Syntax: CPU Request [Language]
+
+Where:  Request  ... /Verbose     to query the processor status
+                 ... /Online x    to set processor number x to online status
+                 ... /Offline x   to set processor number x to offline status
+                 ... /Performance to activate Performance measurements
+
+        Language ... /Language xx to display NLS messages out of CPUxx.msg
+                                  (e.g. GR for German)
+
+</xmp>
+CPU/2 determines your country's language from the <em>COUNTRY=xx</em> statement in your
+<em>CONFIG.SYS</em>. 
+If there exists no <em>CPUxx.msg</em> file in the directory CPU/2 was installed into 
+where <em>xx</em> is the parameter from the <em>COUNTRY</em> statement, CPU/2 will
+default to the US english messages.
+However, if either the language detection is not supported for your country or you want
+to see messages in a certain language, you can, by using the <em>/Language xx</em>
+parameter, force CPU/2 to use a certain language (which of course will display and error
+message and return to US english, if no corresponding <em>CPUxx.msg</em> is found).
+<p>
+APM/2 is provided in 2 NLS versions:
+<ul>
+<li>APM.EXE with APMUs.msg (English version)
+<li>APM.EXE with APMGr.msg (German version)
+</ul>
+You can easily create your own (SBCS single byte character set) national language
+version, just use CPUUs.txt as a template, translate the messages there without
+altering the row and column layout, indentions, characters per line, ... and 
+compile it with the MKMSGF compiler from the Toolkit (or send me the file and
+I'll try to compile it).
+<br>
+If someone volunteers to create a national language version, I'm prepared to
+add it to my site and the package (surely you will be credited too ;-).
+<h2>Using CPU/2</h2>
+<table border=1>
+<tr><td>/Verbose</td>
+    <td>This option displays the current status of your processor(s). Currently to use
+        that option successfully, you need to be running Warp Server Advanced SMP, but
+        future OS/2 versions likely will support the required APIs too.</td>
+<tr><td>/Online x<br>
+        /Offline x</td>
+    <td>This option allows you to toggle a processor from Online to Offline status or
+        vice versa. CPU/2 verifies that your request has been performed correctly by
+        verbosing and comparing the new processor status with the requested one.
+        Again, currently that request will only work on Warp Server Advanced SMP.<br>
+        One thing to mention is that processor 1 of an SMP system can't be set to 
+        Offline (though the term "symmetrical" from SMP would imply that) I'm afraid 
+        the current Intel based multiprocessor specification APIC 1.4 defines CPU 1 
+        as a special one which must run in order for the whole PC to run (I suppose 
+        that this is the only CPU that can process certain hardware interrupts).</td>.
+<tr><td>/Performance</td>
+    <td>This options verboses the relative CPU utilization per processor for the categories
+        Idle, Busy and Interrupt every second until the Space Bar is pressed:
+        <xmp>
+        In the format of: CPU x ( aa/ bb/ cc), where
+        
+        x    ... Processor (x)
+        Idle ... Amount of Idle-time (aa)
+        Busy ... Amount of Busy-time (bb)
+        Intr ... Amount of Interrupt-time (cc)
+        
+        CPU 1 (  0/ 99/  1) CPU 2 (  0/100/  0)
+        </xmp>
+        In above example, I was running the RC5 cracking client so there is no Idle time,
+        both CPUs are flat out, just CPU 1 was also spending some time in Interrupt
+        processing (I have never seen and Interrupt processing time for CPU 2, that's why
+        I suppose CPU 1 can't be set to Offline, even MPCPUMON can't, by specifying
+        the option /APIC on OS2APIC.PSD I would expect symmetrical interrupt processing
+        on all CPUs).
+        <br>
+        For each CPU found in your system, this information will be displayed, however
+        only 4 will fit into a "normal" 80 columns wide commandline. As the status will
+        be updated every second on the same line, 5 of more CPUs will cause an additional
+        linefeed in between and the output formatting will be corrupted a little bit.
+        (You can use "MODE 132,25" as a workaround though.)
+        <br>
+        To prevent that short-lived temporary <em>spikes</em> (as one can see in MPCPUMON)
+        will be reported, an average of the last measurements (currently 5) is calculated
+        and displayed. This filters such spikes and causes a much smoother display.
+        <br>
+        On final thing to note is, that this option will also work on Warp 4 and likely
+        also Warp 3 systems (with some recent fixpacks applied), of course it will only
+        show data for 1 CPU, as those OS/2 versions will ignore any CPU installed except
+        CPU 1.
+</td>
+<tr><td>/Language xx</td>
+    <td>This option allows you to force using the national language version of CPU/2 where
+        <b>CPUxx.msg</b> exists. CPU/2 ships with CPUUs.msg and CPUGr.msg, being the
+        English and German NLS versions.<br>
+        CPU/2 tries to load messages in the language of the system where it is running
+        on, e.g. on a German setup (049 at the COUNTRY statement in CONFIG.SYS) the
+        German message file is used, though those automatic support is limited to
+        only major languages.<br>
+        You can easily use CPUUs.txt as a template, translate the messages while preserving
+        the row and column layout, and then compile them into your national language
+        CPUxx.msg messagefile. As said, if you're running a major language as e.g. French
+        or Spanish, NLS support will be used automatically then, otherwise just supply
+        the <b>/Language xx</b> option.</td>
+</table>
+
+<h2>CPU/2 download</h2>
+You are welcome to download version 1.10 of <a href="CPU2v110.zip">CPU Utility/2</a>
+(inclusive its source written with VisualAge C++) from this site.
+<p>
+CPU/2 is Freeware, but I welcome you to credit me if you're going to reuse some code and I'm
+also very interested to hear about your product where you are using the code, likely I will
+also add a link to it from my pages!
+<p>
+You are also welcome to upload this program to any distribution (like e.g. Hobbes, Leo, ...)
+or to mention it in foras or E-Zines (like e.g. Warpcast) as I might not have the time to
+do it myself.
+<p>
+<hr size=5>
+(C) <a href="mailto:Roman_Stangl@at.ibm.com">Roman Stangl</a> (Roman_Stangl@at.ibm.com), 12.09.1998
+<br>
+Last update: 17.02.2000
+</body>
+</html>
+

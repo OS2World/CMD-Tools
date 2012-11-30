@@ -1,0 +1,35 @@
+;**********************************************************************
+;                             SwitchTo/2    
+;                Copyright (C) by Stangl Roman, 1998
+; This Code may be freely distributed, provided the Copyright isn't
+; removed, under the conditions indicated in the documentation.
+;
+; SW2xx.txt    NLS messages file, to support another language create
+;              a copy of this file containing translated messages and
+;              replace xx (for example) by:
+;                  Us ... for US English
+;                  Gr ... for German
+;                  Fr ... for French
+;
+;**********************************************************************
+;
+SW2
+SW20000E: SW2xx.msg
+SW20001E: SwitchTo/2 - Switch specified session in Window List into foreground
+SW20002E: V1.20 Copyright (C) by Roman Stangl, 04l, 1998 (rstangl@vnet.ibm.com)
+         http://www.geocities.com/SiliconValley/Pines/7885/
+
+SW20003E: Invalid commandline parameters detected
+SW20004E: Syntax: SWITCHTO SessionName
+SW20005E: Where:  SessionName ... Name of Window List Entry to switch to.
+SW20006E: Trying to switch to Session <%1>
+SW20007E: Error starting SwitchTo/2 PM interface copy
+SW20008E: Session <%1> switched into foreground
+SW20009E: Couldn't switch Session <%1> into foreground.
+         Likely the Session you specified is not within the Window List, you 
+         don't have spelled it correctly or you don't have respected case
+         sensitivity
+SW20010E: Error reading queue of SwitchTo/2 PM interface copy, Session may not
+         have been switched into foreground
+
+

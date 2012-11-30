@@ -1,0 +1,37 @@
+;**********************************************************************
+;                             SwitchTo/2    
+;                Copyright (C) by Stangl Roman, 1998
+; This Code may be freely distributed, provided the Copyright isn't
+; removed, under the conditions indicated in the documentation.
+;
+; SW2xx.txt    NLS messages file, to support another language create
+;              a copy of this file containing translated messages and
+;              replace xx (for example) by:
+;                  Us ... for US English
+;                  Gr ... for German
+;                  Fr ... for French
+;
+;**********************************************************************
+;
+SW2
+SW20000E: SW2xx.msg
+SW20001E: SwitchTo/2 - Schalte Session aus der Fensterliste in den Vordergrund
+SW20002E: V1.20 Copyright (C) by Roman Stangl, 04, 1998 (rstangl@vnet.ibm.com)
+         http://www.geocities.com/SiliconValley/Pines/7885/
+
+SW20003E: UngÅltige Programmparameter gefunden
+SW20004E: Syntax: SWITCHTO SessionName
+SW20005E: Wobei:  SessionName ... Name der Session in der Fensterleiste die in
+         den Vordergrund geschalten werden soll.
+SW20006E: Session <%1> wird ausgewÑhlt
+SW20007E: Fehler beim start von der SwitchTo/2 Kopie PM Schnittstelle
+SW20008E: Session <%1> wurde in den Vordergrund geschalten
+SW20009E: Session <%1> konnte nicht in den Vordergrund geschalten werden.
+         Vermutlich befindet sich die angegebene Session nicht in der Fenster-
+         liste, bitte ÅberprÅfen Sie ob der Name richtig geschrieben wurde
+         und die Gross/Kleinschreibung beachtet wurde.
+SW20010E: Fehler beim Lesen der Queue der SwitchTo/2 Kopie PM Schnittstelle, 
+         die Session konnte mîglicherweise nicht in den Vordergrund geschalten 
+         werden
+
+

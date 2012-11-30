@@ -1,0 +1,320 @@
+<!doctype html public "-//IETF//DTD HTML 3.2//EN">
+<html>
+<head>
+<center><title>The official XCOMP/2 (WIN32 port) home page</title></center>
+<meta name="description" content="Official XCOMP/2 homepage">
+<meta name="keywords" content="Roman Stangl, XCOMP, recurisve file comparison, OS/2, WIN32, official release">
+<meta name="owner"    content="Roman_Stangl@at.ibm.com">
+<meta name="review"   content="22.05.2002">
+<meta name="security" content="public">
+</head>
+<body background="Os2Warp.gif">
+<h1>The XCOMP/2 (WIN32 port) home page</h1>
+<font Face="Helv,Helvetica,Arial">
+<p>
+<h2>XCOMP/2 on WIN32</h2>
+<p>
+As far as I can tell, XComp/2 for WIN32 should behave the same between OS/2 and WIN32,
+though due to the different APIs there, there might be incompatibilities I'm
+certainly interested in hearing about.
+<p>
+I did the port under NT4 SP5, and though I was using the oldest version of
+the APIs that should be available under WIN9x too, there is no guarantee 
+that XComp/2 will really work there.
+As always, Microsoft's inflation of APIs for different versions of Windows
+is a hell, and shows that due to their monopoly they can force what they want,
+and whatever they do looks shortsighted!
+<p>
+The only visible difference is the logo displayed when invoking XComp/2:
+</font>
+<xmp>
+XCOMP/2 - The recursive file compare utility for OS/2 (WIN32 port), V3.10
+
+          (C) Roman Stangl 05, 2002 (Roman_Stangl@at.ibm.com)
+          http://www.geocities.com/SiliconValley/Pines/7885/
+
+Use the XCOMP command to selectively compare groups of files located in two
+directories, including all subdirectories.
+
+Syntax:
+  XCOMP [drive:\|\\server\][path\]filename(s) [[drive:\|\\server\]path] [/!MP]
+        [/LOG[:[drive:\|\\server\][path\]file]] [/!C] [/!F] [/!S] [/!B] [/P]
+        [/TINY] [/LINE] [/SIMULATE] [/CHK:[drive:\|\\server\][path\]file]
+Where:
+  [drive:\|\\server\][path\]filename(s)
+                 Specifies the location and name of the Source file(s) to
+                 compare from. You may specify a fully qualified path or
+                 UNC path.
+  [[drive:\|\\server\]path]
+                 Specifies the location of the Target path to compare with.
+                 You may specify a fully qualified path or UNC path.
+  [/MP]
+                 Specifies that 1 thread reads the source and 1 thread reads
+                 the target file. This improves througput when comparing from 2
+                 different physical drives (e.g. CD-ROM and Harddisk).
+  [/LOG[:[drive:\|\\server\][path\]file]]
+                 Specifies that XCOMP/2 logs all problems into a file specified
+                 either by this parameter, or by the XCOMP environment variable
+                 or into XCOMP.LOG (put into the directory XCOMP/2 was
+                 installed into) otherwise.
+  [/!C]
+                 By default, XCOMP/2 pauses at all mismatches. Specifying this
+                 option allows XCOMP/2 just display the mismatch and continue
+                 the comparison without a pause (e.g. useful when using the
+                 /LOG option or output redirection).
+  [/!F]
+                 By default, XCOMP/2 pauses for files in the source location
+                 that can't be found at the target location. Specifying this
+                 this option allows XCOMP/2 just display the miss and continue
+                 the comparison without a pause (e.g. useful when using the
+                 /LOG option or output redirection).
+  [/!S]
+                 By default, XCOMP/2 recurses into all subdirectories it finds,
+                 specifying this option prevents XCOMP/2 doing that.
+  [/!B]
+                 By default, XCOMP/2 will beep, when a severe error occurs
+                 accessing a file at the source or target location. Specifying
+                 this option will silence XCOMP/2 (e.g. useful when using the
+                 /LOG option or output redirection).
+  [/P]
+                 Request XCOMP/2 to pause when it has finished.
+  [/TINY]
+                 2 64kB buffers are used instead of a percentage of total RAM.
+  [/LINE]
+                 Display line number information for messages (useful for e.g.
+                 debugging)
+  [/SIMULATE]
+                 Does not compare the files (useful for e.g. just to list what
+                 files would be compared by checking their existance)
+  [/CHK:[drive:\|\\server\][path\]file]
+                 Specifies that XCOMP/2 uses a checksum file to ensure data
+                 integrity. If the checksum file does not exist, it will be
+                 created, otherwise compared with the checksum calculated
+                 from the data read from the Source.
+                 When using the extension ".MD5" is used, the checksum file
+                 will be compatible to the MD5SUM utility. You may need the
+                 option /!S additionally, as MD5SUM ignores subdirectories.
+Returns:
+  0              Successful completion
+  1              Files could not be opened to compare (possibly 0-length,
+                 locked or not existing)
+  2              Directories could not be opened to search for files (possibly
+                 access right or file system problems)
+  3              Directories could not be opened to search for directories
+                 possibly access right or file system problems)
+  4              A mismatch between at least 1 file was detected
+  5              A mismatch between the calculated Checksum and the recorded
+                 one in the Checksum file of at least 1 file was detected
+  100+           Fatal, unrecoverable exceptions
+
+XCOMP101: Too few commandline arguments specified.
+</xmp>
+<font Face="Helv,Helvetica,Arial">
+<p>
+<h2>Porting to WIN32</h2>
+<p>
+Because I was in a <em>masochisitic</em> mood, I started to port the OS/2 code to the
+WIN32 platform (done under NT4, but I would not know why the port shouldn't work under
+the gaming OS's WIN95 and above too).
+After about 12 hours or so (without having done anything specific for the WIN32
+API before) the <em>horror</em> was over and the port seems to be working.
+<p>As I almost expected, it really was some kind of horror adventure even though
+I also used IBM's VisualAge C++ compiler so that at least the non-OS/2 C++ stuff
+shouldn't cause headaches.
+Anyway, after that experience I am reconfirmed that it is a pleasure to develop
+under OS/2 compared to WIN32, because:
+<ul>
+<li>The MS SDK (admittedly the one included in IBM's compiler is definitely
+dated now, the documentation you can download from MS directly is much better,
+though I don't know how well it is usable with IBM's compiler) is horrible 
+compared to the OS/2 Warp toolkit:
+<ul>
+<li>The contents of the single 20 MB sized Windows Helpfile are a bad joke,
+it is incomplete, messed up, a mentally-ill hierachical structure,
+usually non-helpful and a plague to read.
+<li>Searching the help is a bad joke at best, unless you exactly know what you're
+looking for.
+<li>Even if you found something, you have to wonder what parameters are
+used as input and output.
+<li>Many help hyperlinks just point into the woods.
+<li>The C include files seem to have been written in a non-consistent style,
+searching there instead of the help file is also troublesome.
+<li>I may not have figured out it correctly, but just using
+<em>#include &lt;windows.h&gt;</em> instead of including only the header
+files needed by using <em>#define INCL_*</em> as under OS/2, slows down
+compilition enormously as the C-preprocessor has to look through myriads
+of headerfiles.
+</ul>
+<li>The debugger included with VisualAge C++ looks similar to OS/2's
+<em>IPMD</em>, <em>ICSDEBUG</em> and <em>IDEBUG</em> but:
+<ul>
+<li>Does not work unter W2K, for W2K one can download freely
+from IBM the <em>IDEBUG</em> debugger (thanks), which is a remote
+debugger (thus allowing you to debug not just locally, but also
+remotely over a TCP/IP network), but has a relatively slow (on
+a 866 MHz PIII) JAVA frontend that admittedly looks quite magnificent,
+but clearly lacks the flexibility of the older native debugger
+(e.g. to freely position and overlap all windows) thus once you need
+to look at more than 4 things you'll get crazy.
+<li>The <em>IDEBUG</em> debugger comes as a 60MB
+<em>bloatware</em> download, sucking up to 240MB (!) on your disk.
+<li>I'm not sure if it is related to Windows or just to the Debugger,
+but when using the default settings it won't catch access violations
+and just ends the failing application.
+By requesting it to watch for access violations, it stops at
+various points even in a working program.
+I could explain that by Windows demand-loading pages that way,
+but even if it's not that silly as it looks like, it's damned
+useless for debugging.
+<li>I have to admit though, that it did not crash (as the OS/2
+version sometimes does) and even if it did, it easily can be
+closed from Task Manager.
+<li>Also, but that's a consequence that NT has multiple input queues
+in contrast to OS/2's single input queue, it does not lock up the
+desktop even when debugging GUI programs.
+</ul>
+<li>The WIN32 API:
+<ul>
+<li>Similar to the header files, it's non-consistent.
+For some APIs one can rely that the value returned tells if the call
+was ok or has failed, more often one has to explicitely ask for
+the error code by <em>GetLastError()</em>, which returns the last
+error even if it was set by a call long before (thus, one has
+to use <em>SetLastError()</em> to avoid that and bloat the code).
+Unless you get used of that you hunt down phantom errors excessively.
+<li>The APIs themselfes are difficult to oversee, as there is no
+hint where they come from.
+In contrast under OS/2 where e.g. the base API is prefixed by <em>Dos</em>
+or the GUI API by <em>Win</em>, which makes is much more logical
+to read and understand.
+<li>Of course, it's heavily non-consistent that some APIs return
+the result in the result code while others return it via a
+(pointer to the passed) parameter.
+</ul>
+<li>The IBM VisualAge C++ 3.6 FP2 compiler:
+<ul>
+<li>The main advantage is that it is quite compatible with the OS/2
+version, so you can concentrate on the program not the environment itself.
+<li>The debugger is still the best I've seen under Windows, unfortunately
+IBM messed that up too, because their latest Windows debugger (using a
+JAVA frontend) is a real Microsoft look-alike application, a much nicer
+GUI but having an idiotic when it comes to a real productive use.
+<li>I can't be installed on anything later than NT (while using an installed
+setup will still work except the debugger as I said above).
+Unfortunately, IBM gave up in the C/C++ compiler market (ok, not completely, 
+AIX is the last platform supported, probably because they don't get kicked out
+by the MS marketing machine there, but as IBM no longer likes OS/2 and they
+saw they don't have a chance on MS's homeland they left the Intel platform
+completely).
+</ul>
+<li>Finally, the editor:
+<ul>
+<li>Under OS/2 I use EPM and I haven't yet seen anything better on
+any platform, using <em>WRITE</em> or <em>WORDPAD</em> can only be
+a temporary solution as without linenumber information one is lost
+when programming.
+</ul>
+</ul>
+<p>
+Well, meanwhile I had the chance to play a little with MS VisualStudio
+C++ 6, and of course some observations:
+<ul>
+<li>It's a IDE (Integrated Development Environment) in the deepest sense
+of it's word, I yet have to see if there is a way to run the compiler from
+a commandline.
+<li>While I admit this environment seems powerful enough to do all 
+programming project one might think of in the IDE, it has a bad habit to
+write lots of proprietary files and lots of directories.
+E.g. even for a simple "Hello World!" you get multiple files beside the
+main C file, be it one for precompiled headers, be it for a class browser,
+be it what only the devil knows.
+And it also creates multiple directories for building a debug and an
+optimized version.
+<li>The GUI looks nice, but it's always the same with such Mickey Soft
+applications, real productive use is hard.
+Take e.g. the debugger (which is similar to IBM's latest JAVA based
+incarnation of its debugger), it is simply uncapable of displaying lots
+of variable monitor, be it because that window can't be detached from the
+integrated environment to be sized to any size more usuable, be it that the
+nice layout takes so much space on the screen that there is not much space
+left to display the variable monitor.
+</ul>
+<p>
+<h2>Results</h2>
+<p>
+Once again, it's clearly to demonstrate that OS/2 is the superior
+platform and one gets only even more disappointed that IBM lost
+interest to compete with that inferior monopolistic evil empire
+(it won't bring back OS/2, but one can at least hope that
+switching to Windows makes things much more expensive, unreliable
+and insecure, so we got at least something to laugh about).
+<p>
+I haven't really looked into LINUX programming, but have bought the
+book <em>Linux Application Development</em> because it was heavily
+recommended everywhere.
+After reading it I really was very disappointed (or maybe I did
+not understand what this book was written for), because it did
+spent a lot of time talking about terminals and so, but not or
+just on the surface talking about queues, semaphores, multithreading,
+... all the stuff needed to make good programs :-(.
+<p>
+<h2>The SYS executable</h2>
+<p>
+During XComp/2 porting on WIN32 I had to struggle with API return codes
+as many APIs provide the same as OS/2 (even the macro reads the same)
+while others provide different (it seems to me that OS/2 has a finer
+resolution when providing error codes) return codes.
+As translating the return codes into something one can find out its
+cause, I have written <b>Sys.c</b> which returns the text corresponding
+to the return code (as the MS SDK help proved helpless and the header
+files are too incomplete again).
+<p>
+It's similar what you can receive under OS/2 when typing <b>HELP SYSx</b>
+where <b>x</b> is the return code, except that under OS/2 you also get
+some information how to cure the problem.
+Just type <b>SYS</b> to get some basic help:
+</font>
+<xmp>
+SYS - Windows error code retriever for WIN32, V1.00
+
+      (C) Roman Stangl 09, 2001 (Roman_Stangl@at.ibm.com)
+      http://www.geocities.com/SiliconValley/Pines/7885/
+
+Syntax: SYS x
+Where:      x ... Numeric Windows system error code
+</xmp>
+<font Face="Helv,Helvetica,Arial">
+Or type <b>SYS x</b> where <b>x</b> is the API return code, e.g.
+<b>32</b>:
+</font>
+<xmp>
+SYS32: The process cannot access the file because
+it is being used by another process.
+</xmp>
+<font Face="Helv,Helvetica,Arial">
+<p>
+By the way, this utility can also be helpful when XComp/2 does complain
+and show error codes during comparison to find out the cause (e.g.
+XComp/2 will just tell <b>SYS32</b> when you try to compare <b>PAGEFILE.SYS</b>,
+because the Windows swapper is locked by the system as <b>SYS 32</b>
+will tell you).
+<p>
+<h2>Accessing XComp/2 for WIN32</h2>
+<p>
+The port XComp/2 to windows is part of the 
+<a href="../XComp.html#XCOMP/2 source code">XComp/2 source code</a> archive, both
+for the modified source code and the exectuable itself.
+<p>
+Note: <font color="Red">You have to have access to an OS/2 PC to decrypt the 
+encrypted source code archive, because I provide the decryption executable only for OS/2.
+These tools are for OS/2 users who are forced to used Windows sometimes, but
+not for users that uncritically help to extend the power of the evil's empire 
+monopoly!</font>
+<p>
+<hr size=5>
+(C) <a href="mailto:Roman_Stangl@at.ibm.com">Roman Stangl</a> (Roman_Stangl@at.ibm.com), 10.09.2001
+<br>
+Last update: 22.05.2002
+</body>
+</html>
+

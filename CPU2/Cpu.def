@@ -1,0 +1,11 @@
+NAME        CPU     WINDOWCOMPAT
+NEWFILES
+
+Description '$@#(C) Roman_Stangl@at.ibm.com:1.10 (02,2000) (Cpu.exe)#@CPU Utility/2
+             http:/www.geocities.com/SiliconValley/Pines/7885/'
+
+DATA        MULTIPLE
+STACKSIZE   16384
+HEAPSIZE    16384
+PROTMODE
+

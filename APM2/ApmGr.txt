@@ -1,0 +1,223 @@
+;**********************************************************************
+;                                APM/2
+;             Copyright (C) by Stangl Roman, 1997, 1998
+; This Code may be freely distributed, provided the Copyright isn't
+; removed, under the conditions indicated in the documentation.
+;
+; APMxx.txt    NLS messages file, to support another language create
+;              a copy of this file containing translated messages and
+;              replace xx (for example) by:
+;                  Us ... for US English
+;                  Gr ... for German
+;                  Fr ... for French
+;              And then run the application with the commandline option
+;              -Language Gr (for German,...).
+;
+; Note: Translation just needs to begin with message 3, messages 0 to 2
+;       are reserved
+;
+; Note: The formatting done here is reflected in the actual output of
+;       the message, so I recommend to keep empty lines and the column
+;       width (just keep the shipped message source file as a template)
+;
+;**********************************************************************
+;
+APM
+APM0000?:
+APM0001I: I The NLS messagefile %s does not exist.
+          Please correct that problem,  for now the English messagefile will be
+          used instead!
+APM0002?:
+APM0003I: X
+APM/2 V1.40 - Advanced Power Management spec. 1.1/1.2 interface for OS/2
+Copyright (C) by Roman Stangl, 1997, 1998 (rstangl@vnet.ibm.com)
+                 http://www.geocities.com/SiliconValley/Pines/7885/
+
+APM0004I: X APM/2 erlaubt es Ihren Rechner in den APM standby, suspend oder power off Modus
+zu bringen, ein automatisches Einschalten des PCs zu planen  und den vorherigen
+Zustand  wiederherzustellen.   Diese  Anforderungen  kînnen/mÅssen  Åber  einen
+Scheduler geplant werden. Der Quellenkode enthÑlt ein C/C++ Toolkit mit dem Sie
+eigene APM OS/2 Programme schreiben kînnen.
+
+Dieses Programm is Freeware und  kann frei verteilt werden,  solange das Archiv
+komplett bleibt,  jede Portierung auf eine  der technisch unterlegenen  Windows
+Plattformen ist ausdrÅcklich verboten!
+
+APM0005I: I UnvollstÑndige Befehlszeilenparameter
+
+Syntax: APM /?
+Wobei:  /? ... Hilfe anzeigen
+
+APM0006I: I Befehlszeilenparameter:
+
+APM0007I: X Syntax: APM Funktion [GerÑt] [Planung] [Sprache] [Version]
+
+Wobei:  Funktion  ... /Verbose   um die APM Konfigurationsdaten anzuzeigen
+                  ... /Ready     um Zustand pre-APM Funktion wiederherzustallen
+                  ... /Standby   um APM standby zu aktivieren
+                  ... /Suspend   um APM suspend zu aktivieren
+                  ... /Poweroff  um APM power off zu aktivieren
+                  ... /Poweroff- um ShutDown(1) und APM power off zu aktivieren
+                  ... /Poweroff+ um ShutDown(0) und APM power off zu aktivieren
+                  ... /Poweron   um PC zum  angegebenen Zeitpunt  einzuschalten
+        GerÑt     ... /Device BIOS|All|Display|Disk|Parallel|Serial
+                                 um   Funktion fÅr   GerÑt anzuwenden  (All ist
+                                 Standardwert)
+        Planung   ... /Schedule [yyyy:mm:tt:]ss:mm
+                                 um Funktion fÅr angegebenen Zeitpunkt planen
+        Sprache   ... /Language xx (um NLS Texte aus APMxx.msg zu laden)
+        Version   ... /Force um die gefundene OS/2 Version zu ignorieren
+
+Anm.:   DosShutdown(0) ... FÅhrt kompletten Systemabschluss durch und schliesst
+                           weitere Dateisystemzugriffe aus
+        DosShutdown(1) ... Schreibt Puffer,  Cache  zurÅck  und beendet  Thread
+                           Verarbeitung
+
+APM0008E: E Erforderlichen Parameter "Funktion" nicht angegeben.
+
+APM0009E: E Mehrdeutige Parameter fÅr "Funktion" angegeben.
+
+APM0010E: E UngÅltiger Parameter fÅr "GerÑt" angegeben.
+
+APM0011I: I Fehler SYS$$04d beim ôffnen des APM GerÑtetreibers.
+
+APM0012E: E Keine APM Schnittstelle verfÅgbar. Stellen Sie bitte sicher, dass der
+          Treiber APM.SYS  (der mit dem  Installationsprogramm  nachinstalliert
+          werden kann)  installiert,  und  das die  APM  UnterstÅtzung im  BIOS
+          aktiviert ist.
+
+APM0013I: I APM Konfigurationdaten von APM.SYS:
+
+APM0014I: X           BIOS Statusbits:                                               0x$$04X
+APM0015I: X           APM BIOS Version:                                              $$d.$$d
+APM0016I: X           APM.SYS Version:                                               $$d.$$d
+APM0017I: X           OS/2 APM UnterstÅtzung:                                        $$d.$$d
+
+APM0018I: X           Statusbits:
+          16-bit geschÅtzter Modus unterstÅtzt                           0x0001
+          32-bit geschÅtzter Modus unterstÅtzt                           0x0002
+          Idle CPU reduziert Prozessortakt                               0x0004
+          APM BIOS abgeschalten                                          0x0008
+          APM BIOS inaktiv                                               0x0010
+
+APM0019I: X           APM 1.2 Statusbits:                                            0x$$04X
+          Anzahl unterstÅtzter Batterieeinheiten:                        $$d
+
+APM0020I: X           APM 1.2 Statusbits:
+          PC kann in APM standby geschalten werden                       0x0001
+          PC kann in APM suspend geschalten werden                       0x0002
+          Automatische power on Zeitgeber kann PC aus APM standby wecken 0x0004
+          Automatische power on Zeitgeber kann PC aus APM suspend wecken 0x0008
+          Wakeup on Ring kann PC aus APM standby wecken                  0x0010
+          Wakeup on Ring kann PC aus APM suspend wecken                  0x0020
+          PCMCIA Wakeup on Ring kann PC aus APM standby wecken           0x0040
+          PCMCIA Wakeup on Ring kann PC aus APM suspend wecken           0x0080
+
+APM0021I: X           FÅr weitere Informationen, schauen Sie bitte in der APM Spezifikation
+          1.2  (auf Intel's  Website  unter  APMV12.PDF  verfÅgbar),  dem  OS/2
+          Input/Output  Device  Driver  Reference   (auf  IBM's  Website  unter
+          PDDREF.INF verfÅgbar) und Ralf Brown's Interrupt List nach.
+
+APM0022I: X           Fehler:  APM.SYS Fehler, HElP SYS$$04d zeigt weitere Hilfe.
+APM0023I: X           Grund:   PowerNoError            0x0000
+APM0024I: X           Grund:   PowerBadSubId           0x0001
+APM0025I: X           Grund:   PowerBadReserved        0x0002
+APM0026I: X           Grund:   PowerBadDevId           0x0003
+APM0027I: X           Grund:   PowerBadPwrState        0x0004
+APM0028I: X           Grund:   PowerSelAlreadySetup    0x0005
+APM0029I: X           Grund:   PowerBadFlags           0x0006
+APM0030I: X           Grund:   PowerBadSemHandle       0x0007
+APM0031I: X           Grund:   PowerBadLength          0x0008
+APM0032I: X           Grund:   PowerDisabled           0x0009
+APM0033I: X           Grund:   PowerNoEventQueue       0x000A
+APM0034I: X           Grund:   PowerTooManyQueues      0x000B
+APM0035I: X           Grund:   PowerBiosError          0x000C
+APM0036I: X           Grund:   PowerBadSemaphore       0x000D
+APM0037I: X           Grund:   PowerQueueOverflow      0x000E
+APM0038I: X           Grund:   PowerStateChangeReject  0x000F
+APM0039I: X           Grund:   PowerNotSupported       0x0010
+APM0040I: X           Grund:   PowerDisengaged         0x0011
+APM0041I: X           Grund:   Unbekannt (oder nicht dokumentiert)
+APM0042I: X
+APM0043I: I Fehler SYS$$04d beim Lesen der APM Konfigurationsdaten.
+APM0044E: E Unerwarteter Fehler beim Auslesen der APM Konfigurationsdaten. Da der
+          APM.SYS GerÑtetreiber erfolgreich geîffnet werden konnte,  handelt es
+          sich entweder um einen Programmfehler,  bzw. wenn der Fehler  SYS0087
+          aufgetreten  ist um eine  InkompatibilitÑt zwischen dem  APM BIOS und
+          OS/2's APM Subsystem.
+
+APM0045E: E Erforderlichen Parameter Monat (mm) fÅr "Planung" nicht angegeben.
+
+APM0046E: E Erforderlichen Parameter Tag (tt) fÅr "Planung" nicht angegeben.
+
+APM0047E: E Erforderlichen Parameter Stunde (ss) fÅr "Planung" nicht angegeben.
+
+APM0048E: E Erforderlichen Parameter Minute (mm) fÅr "Planung" nicht angegeben.
+
+APM0049E: E Zu viele Parameter fÅr "Planung" nicht angegeben.
+
+APM0050E: E UngÅltige Parameter fÅr "Planung" gefunden.  Bitte stellen Sie sicher
+          dass die folgenden Wertebereiche eingehalten werden:
+          jjjj ... Jahr   1990 bis 2099 (wahlweise)
+          mm   ... Monat     1 bis   12 (wahlweise)
+          tt   ... Tag       1 bis   31 (wahlweise)
+          ss   ... Stunde    0 bis   23
+          mm   ... Minute    0 bis   59
+
+APM0051E: E UngÅltige Kombination von "Funktion" /Verbose und "Planung" gefunden.
+          "Planung" erfordert eine "Funktion" die nicht /Verbose ist.
+
+APM0052E: E UngÅltige Kombination von "Funktion" /Poweron und "Planung" gefunden.
+          /Poweron erfordert eine "Planung" des Zeitpunktes.
+
+APM0053I: I "Planung" wartet auf Eintritt des geplanten Zeitpunktes....
+APM0054I: I Geplanter Zeitpunkt eingetreten.
+
+APM0055E: E OS/2 Fehler SYS$$04d eim Auslesen der Uhr.
+
+APM0056E: E Die "Funktion" /Poweron  erfordert eine APM  UnterstÅtzung in Version
+          1.2 oder hîher. Dies wird einerseits erst durch ein 1.2+ APM BIOS und
+          und den 1.2+ APM.SYS OS/2 Treiber mîglich. Letzterer ist entweder auf
+          IBM's online Device Driver site oder in  Warp 4 Fixpack 6+ verfÅgbar.
+          Sie kînnen die APM Versionen mit der  /Verbose  "Funktion"  anzeigen,
+          und mit /Force die VersionsÅberprÅfung umgehen.
+
+APM0057E: E Die "Funktion" /Poweroff, /Poweroff- oder /Poweroff+ erfordert Warp 4
+          da sonst,  falls der Aufruf Åberhaupt  durchgefÅhrt werden kann,  ein
+          CHKDSK beim nÑchsten Boot durchgefÅhrt wird, da das Dateisystem nicht
+          korrekt abgeschlossen wird.  Sie kînnen die  VersionsÅberprÅfung aber
+          mit dem Parameter /Force deaktivieren.
+
+APM0058E: E Ein unbehebbarer Fehler ist aufgetreten. APM/2 beendet.
+
+APM0059I: I GerÑtetreiber APM$ wurde geîffnet, APM wird in 10 Sekunden aktiviert
+APM0060I: I APM Power Management konnte nicht aktiviert werden, stellen Sie bitte
+          sicher dass die APM BIOS UnterstÅtzung eingeschalten ist.
+
+APM0061E: E Ein unbehebbarer Fehler ist aufgetreten. APM/2 beendet.
+
+APM0062I: I Shutdown des Dateisystems wird in 10 Sekunden durchgefÅhrt.
+APM0063I: I OS/2 Fehler beim Aufruf von DosShutdown().
+
+APM0064E: E Ein unbehebbarer Fehler ist aufgetreten. APM/2 beendet.
+
+APM0065I: I Angeforderte APM "Funktion" wird 10 Sekunden durchgefÅhrt.
+APM0066I: I Unerwarteter Fehler  beim Aufruf der  angeforderten  APM  "Funktion".
+          APM hat die Anforderung  nicht akzeptiert,  stellen  Sie bitte sicher
+          dass Ihr PC APM standby, suspend und power off unterstÅtzt (eventuell
+          finden  Sie diese  Information  im  Benutzerhandbuch  Ihres PC).  Sie
+          kînnen auch versuchen das BIOS auf den letzten Stand upzugraden.
+
+APM0067E: E Ein unbehebbarer Fehler ist aufgetreten. APM/2 beendet.
+
+APM0068I: I Die (asynchron bearbeitete) APM Funktion wird in KÅrze durchgefÅhrt.
+
+APM0069I: I Der automatische APM power on Timer with in 10 Sekunden geladen.
+APM0070I: I Unerwarteter Fehler beim Laden des  APM power on Timers.  APM hat die
+          Anforderung nicht akzeptiert, stellen Sie bitte sicher dass der auto-
+          matische APM power on Timer von Ihrem PC unterstÅtzt wird  (eventuell
+          mÅssen Sie ihn erst im  BIOS aktivieren)  oder versuchen Sie das BIOS
+          auf den letzten Stand upzugraden.
+
+APM0071E: E Ein unbehebbarer Fehler ist aufgetreten. APM/2 beendet.
+

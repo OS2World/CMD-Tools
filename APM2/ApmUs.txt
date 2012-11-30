@@ -1,0 +1,220 @@
+;**********************************************************************
+;                                APM/2
+;             Copyright (C) by Stangl Roman, 1997, 1998
+; This Code may be freely distributed, provided the Copyright isn't
+; removed, under the conditions indicated in the documentation.
+;
+; APMxx.txt    NLS messages file, to support another language create
+;              a copy of this file containing translated messages and
+;              replace xx (for example) by:
+;                  Us ... for US English
+;                  Gr ... for German
+;                  Fr ... for French
+;              And then run the application with the commandline option
+;              -Language Gr (for German,...). 
+;
+; Note: Translation just needs to begin with message 3, messages 0 to 2
+;       are reserved
+;
+; Note: The formatting done here is reflected in the actual output of
+;       the message, so I recommend to keep empty lines and the column
+;       width (just keep the shipped message source file as a template)
+;
+;**********************************************************************
+;
+APM
+APM0000?:
+APM0001I: I The NLS messagefile %s does not exist.
+          Please correct that problem,  for now the English messagefile will be
+          used instead!
+APM0002?:
+APM0003I: X
+APM/2 V1.40 - Advanced Power Management spec. 1.1/1.2 interface for OS/2
+Copyright (C) by Roman Stangl, 1997, 1998 (rstangl@vnet.ibm.com)
+                 http://www.geocities.com/SiliconValley/Pines/7885/
+
+APM0004I: X APM/2 allows you to put your workstation into APM standby, suspend or power off
+mode,  to turn your PC on with the automatic  APM power on timer and to restore
+to the pre-APM request state.  Requests  can/must  be scheduled with a built-in
+scheduler. The sourcecode includes a C/C++ Toolkit for you to make your own APM
+OS/2 applications.
+
+This program is Freeware (and can be freely distributed, as long as the archive
+is kept complete), however you must not port it to  any of the inferior Windows
+platforms!
+
+APM0005I: I Insufficient commandline options specified.
+
+Syntax: APM /?
+Where:  /? ... display help
+
+APM0006I: I Commandline options:
+
+APM0007I: X Syntax: APM Request [Device] [Schedule] [Language] [Version]
+
+Where:  Request  ... /Verbose   to display APM configuration data
+                 ... /Ready     to restore pre-APM request state
+                 ... /Standby   to invoke APM standby
+                 ... /Suspend   to invoke APM suspend
+                 ... /Poweroff  to invoke APM power off
+                 ... /Poweroff- to invoke DosShutdown(1) and APM power off
+                 ... /Poweroff+ to invoke DosShutdown(0) and APM power off
+                 ... /Poweron   to schedule to power on PC via APM
+        Device   ... /Device BIOS|All|Display|Disk|Parallel|Serial
+                                to apply Request on a device (default is All)
+        Schedule ... /Schedule [yyyy:mm:dd:]hh:mm 
+                                to schedule request at the specified date/time
+        Language ... /Language xx (to load NLS messages from APMxx.msg)
+        Version  ... /Force to ignore OS/2 version detected
+
+Note:   DosShutdown(0) ... Performs full  system  shutdown and locks filesystem
+        DosShutdown(1) ... Performs  buffer and  cache flushing to  make system
+                           quiescent by stopping thread execution
+
+APM0008E: E Required parameter "Request" not specified.
+
+APM0009E: E Ambiguous parameters specified for "Request".
+
+APM0010E: E Invalid parameters specified for "Device".
+
+APM0011I: I Error SYS$$04d while opening APM device driver.
+
+APM0012E: E No APM interface available. Please verify that you have installed the
+          APM.SYS  device driver  (you can add it by selective install and that
+          and that APM support is enabled in BIOS.
+
+APM0013I: I APM configuration data returned by APM.SYS:
+
+APM0014I: X           BIOS Flags:                                                    0x$$04X
+APM0015I: X           APM BIOS Version:                                              $$d.$$d
+APM0016I: X           APM.SYS Version:                                               $$d.$$d
+APM0017I: X           OS/2 APM Support Version:                                      $$d.$$d
+
+APM0018I: X           Flags:
+          16-bit protected mode interface supported                      0x0001
+          32-bit protected mode interface supported                      0x0002
+          CPU Idle call slows processor clock                            0x0004
+          APM BIOS disabled                                              0x0008
+          APM BIOS disengaged                                            0x0010
+
+APM0019I: X           APM 1.2 Capabilities:                                          0x$$04X
+          Number of supported battery units:                             $$d
+
+APM0020I: X           APM 1.2 Capabilities:
+          Can enter global standby state                                 0x0001
+          Can enter global suspend state                                 0x0002
+          Automatic power on timer will wake up system from standby      0x0004
+          Automatic power on timer will wake up system from suspend      0x0008
+          Wakeup on Ring will wake up system from standby                0x0010
+          Wakeup on Ring will wake up system from suspend                0x0020
+          PCMCIA Wakup on Ring will wake up system from standby          0x0040
+          PCMCIA Wakup on Ring will wake up system from suspend          0x0080
+
+APM0021I: X           For more information please look into the APM Specification 1.2 which
+          is available as  APMV12.PDF on Intel's Website,  into the OS/2 Input/
+          Output Device Driver  Reference which is available as  PDDREF.INF  on
+          IBM's Website and Ralf Brown's Interrupt List.
+
+APM0022I: X           Error:   APM.SYS Error, type HELP SYS$$04d for more information.
+APM0023I: X           Reason:  PowerNoError            0x0000
+APM0024I: X           Reason:  PowerBadSubId           0x0001
+APM0025I: X           Reason:  PowerBadReserved        0x0002
+APM0026I: X           Reason:  PowerBadDevId           0x0003
+APM0027I: X           Reason:  PowerBadPwrState        0x0004
+APM0028I: X           Reason:  PowerSelAlreadySetup    0x0005
+APM0029I: X           Reason:  PowerBadFlags           0x0006
+APM0030I: X           Reason:  PowerBadSemHandle       0x0007
+APM0031I: X           Reason:  PowerBadLength          0x0008
+APM0032I: X           Reason:  PowerDisabled           0x0009
+APM0033I: X           Reason:  PowerNoEventQueue       0x000A
+APM0034I: X           Reason:  PowerTooManyQueues      0x000B
+APM0035I: X           Reason:  PowerBiosError          0x000C
+APM0036I: X           Reason:  PowerBadSemaphore       0x000D
+APM0037I: X           Reason:  PowerQueueOverflow      0x000E
+APM0038I: X           Reason:  PowerStateChangeReject  0x000F
+APM0039I: X           Reason:  PowerNotSupported       0x0010
+APM0040I: X           Reason:  PowerDisengaged         0x0011
+APM0041I: X           Reason:  Unknown (or not documented)
+APM0042I: X
+APM0043I: I Error SYS$$04d reading APM configuration data.
+APM0044E: E Unexpected error reading the APM  configuration data.  As the APM.SYS
+          device driver  could be opened successfully, this is either a program
+          error,  or in case  that the error was a  SYS0087  there seem to be a
+          fundamental  incompatibility   between   APM  BIOS   and  OS/2's  APM
+          substem.
+
+APM0045E: E Required parameter month (mm) for "Schedule" not specified.
+
+APM0046E: E Required parameter day (dd) for "Schedule" not specified.
+
+APM0047E: E Required parameter hour (hh) for "Schedule" not specified.
+
+APM0048E: E Required parameter minute (mm) for "Schedule" not specified.
+
+APM0049E: E Excessive parameters specified for "Schedule".
+
+APM0050E: E Invalid  parameters detected for  "Schedule",  please ensure that the
+          data you entered makes sense. The following ranges are expected:
+          yyyy ... year   1990 to 2099 (optional)
+          mm   ... month     1 to   12 (optional)
+          dd   ... day       1 to   31 (optional)
+          hh   ... hour      0 to   23
+          mm   ... minute    0 to   59
+
+APM0051E: E Invalid  combination of "Request"  /Verbose and  "Schedule" detected.
+          "Schedule" requires a "Request" not equal to /Verbose.
+
+APM0052E: E Invalid  combination of "Request"  /Poweron and  "Schedule" detected.
+          /Poweron requires a "Schedule" of when that event should occur.
+
+APM0053I: I "Schedule" waits for the planned event...
+APM0054I: I Planned event occurred.
+
+APM0055E: E OS/2 error SYS$$04d reading the System clock.
+
+APM0056E: E The "Request"  /Poweron requires  APM support at version 1.2 or above
+          for which  you need your  APM BIOS at  version 1.2+ and  version 1.2+
+          of OS/2's APM.SYS driver. The later can be obtained from IBM's online
+          Device Driver site or  Warp 4 Fixpack 6+.  You can use the  "Request"
+          /Verbose to show your APM levels,  however you can deactivate version
+          checking by supplying the parameter /Force.
+
+APM0057E: E The "Request"  /Poweroff, /Poweroff- oder /Poweroff+  requires Warp 4
+          because otherwise a  CHKDSK will be performed during the  next reboot
+          as the filesystem won't be closed correctly, if the request processes
+          successfully  at all.  However you can dactivate  version checking by
+          supplying the parameter /Force.
+
+APM0058E: E A unrecoverable error occurred. APM/2 will terminate.
+
+APM0059I: I The APM$ device driver was opened, APM will be enabled in 10 seconds.
+APM0060I: I APM power management  could not be enabled, please verify that APM is
+          enabled in your BIOS.
+
+APM0061E: E A unrecoverable error occurred. APM/2 will terminate.
+
+APM0062I: I Filesystem Shutdown will be performed in 10 seconds.
+APM0063I: I OS/2 error while callling DosShutdown().
+
+APM0064E: E A unrecoverable error occurred. APM/2 will terminate.
+
+APM0065I: I Selected APM "Request" will be performed in 10 seconds.
+APM0066I: I Unexpected error  executing the selected  APM  "Request".  APM didn't
+          accept your  request,  please verify  that your  PC does support  APM
+          standby, suspend and power off requests (probably be looking into the
+          User's Guide shipped with your PC).  You may also try to upgrade your
+          BIOS to the latest level.
+
+APM0067E: E A unrecoverable error occurred. APM/2 will terminate.
+
+APM0068I: I Your (asynchronous) APM request should be performed shortly.
+
+APM0069I: I Loading the APM automatic power on timer in 10 seconds.
+APM0070I: I Unexpected error loading the APM automatic power on timer. APM didn't
+          accept your  request,  please verify  that your  PC does support  APM
+          automatic power on timer (probably you have to enable it in the BIOS)
+          or you may also try to upgrade your BIOS to the latest level.
+
+APM0071E: E A unrecoverable error occurred. APM/2 will terminate.
+
+

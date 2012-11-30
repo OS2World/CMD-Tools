@@ -1,0 +1,10 @@
+NAME        LX2DUMP WINDOWCOMPAT
+NEWFILES
+
+Description '$@#(C) Roman_Stangl@at.ibm.com:1.03 (02,2000) (LX2DUMP.exe)#@LX/2 - Linear eXecutable Dump Facility/2'
+
+DATA        MULTIPLE
+STACKSIZE   256000
+HEAPSIZE    128000
+PROTMODE
+

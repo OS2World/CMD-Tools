@@ -1,0 +1,37 @@
+                          Upload Information Template for Hobbes.nmsu.edu
+                          ===============================================
+
+        Archive Filename: XComp2v310.zip
+       Short Description: Multithreaded recursive file comparison tool
+        Long Description: XComp/2 is a multithreaded recursive file comparison
+                          tool (as a counterpart to XCOPY) that is especially
+                          useful to compare CDs burned with the original data.
+                          Support for CRC32 and MD5 Checksums is included.
+                          Source (and WIN32 port) is included (req. IBM 
+                          VisualAge C++ V3.6.5, Warp Toolkit or compatible).
+
+                          Also part of that package is IsoComp/2, a utility 
+                          to compare with or convert to CD-ROMs into ISO or 
+                          RAW image or RSJ track image files, also supporting 
+                          CRC32 and MD5 checksums. Complete Source (and WIN32 
+                          port) is included. 
+
+      Proposed directory
+           for placement: /pub/os2/apps/mmedia/cd/cd-r
+
+               Your name: Roman Stangl
+           Email address: Roman_Stangl@at.ibm.com
+    Program contact name: (same)
+   Program contact email: (same)
+             Program URL: http://www.geocities.com/SiliconValley/Pines/7885/
+
+      Would you like the
+   contact email address
+    included in listings? yes
+
+Operating System/Version: Warp/Win NT and above
+ Additional requirements:
+
+                Replaces: /pub/os2/apps/mmedia/cd/cd-r/XComp2v300.zip
+
+

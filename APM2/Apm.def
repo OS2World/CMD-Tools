@@ -1,0 +1,11 @@
+NAME        APM     WINDOWCOMPAT
+NEWFILES
+
+Description '$@#(C) Roman Stangl (rstangl@vnet.ibm.com):V1.40 (05,1998) (Apm.exe)#@APM/2'
+
+DATA        MULTIPLE
+STACKSIZE   8192
+HEAPSIZE    8192
+PROTMODE
+
+

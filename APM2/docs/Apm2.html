@@ -1,0 +1,331 @@
+<!doctype html public "-//IETF//DTD HTML 3.2//EN">
+<html>
+<head>
+<center><title>The official APM/2 home page</title></center>
+<meta name="description" content="Official APM/2 homepage">
+<meta name="keywords" content="Roman Stangl, APM, Advanced Power Management, official release">
+<meta name="owner"    content="rstangl@vnet.ibm.com">
+<meta name="review"   content="06.05.1998">
+<meta name="security" content="public">
+</head>
+<body background="Os2Warp.gif">
+<h1>The APM/2 home page</h1>
+<p>
+Welcome to the home of <em>APM/2</em>, a utility that allows you to:
+<ul>
+<li>verbose the APM OS/2 configuration
+<li>perform APM standby, suspend and power off (req. Warp 4) requests
+<li>configure the automatic APM power on timer (req. APM level 1.2+)
+<li>schedule APM standby, suspend and power off
+<li>easily create a NLS version of APM/2
+</ul>
+<p>
+<font color=#A00000>Does it work?</font>
+<font color=#00A000><b>Theoretically yes</b>, but YMMV (your mileage will vary)!
+Unfortunately if it works for your PC depends on your PC's APM BIOS, the OS/2
+APM subsystem and your PC's hardware - in about that sequence.
+What the problems are is mentioned in the <a href="#Problems">Known Problems</a> 
+section, what the solutions are, well that may depend on your experiments and luck ;-).
+</font>
+<p>
+<b>I'm very interested for any feedback</b>, so I would be pleased if you can
+stop by at the <a href="http://www.geocities.com/SiliconValley/Pines/7885/DownloadAPM2Form.html">online APM/2 survey</a>
+and <b>send me your comments</b>.
+Of course <a href="mailto:rstangl@vnet.ibm.com">e-mail</a> is welcome too.
+<p>
+The OS/2 APM.SYS device driver has been update to APM Specification 1.2, you can
+download it from the OS/2 Device Driver Pak online in the
+<a href="http://service.software.ibm.com/os2ddpak/html/BA92B5E5B50002BC86256585006B0514.html">
+OS/2 Components, Base Device Driver update section</a>.
+Alternatively the APM support introduced with Warp 4 FixPack 6 gets you to
+APM.SYS level 1.2 too.
+I didn't test in detail, but I haven't found one of my problems was fixed.
+<h2>Description of APM/2</h2>
+APM/2 is a commandline utility, that allows you to query OS/2's APM support
+and request OS/2's APM to put your PC into APM standby, suspend or power off
+(however this must be supported by your hardware and BIOS).
+<p>
+APM/2 is provided in 2 NLS versions:
+<ul>
+<li>APM.EXE with APMUs.msg (English version)
+<li>APM.EXE with APMGr.msg (German version)
+</ul>
+and by volunteers also available:
+<ul>
+<li>APM.EXE with APMRu.msg (Russian version, many thanks to Andres Phillippov!)
+</ul>
+<p>
+You can easily create your own (SBCS single byte character set) national language
+version, just use APMUs.txt as a template, translate the messages there without
+altering the row and column layout and compile it with the MKMSGF compiler
+from the Toolkit.
+<br>
+If someone volunteers to create a national language version, I'm prepared to
+add it to my site.
+<p>
+When invoking APM.EXE without commandline arguments, the help is displayed
+(if possible in your national language, otherwise defaults to English):
+<xmp>
+APM/2 V1.40 - Advanced Power Management spec. 1.1/1.2 interface for OS/2
+Copyright (C) by Roman Stangl, 1997, 1998 (rstangl@vnet.ibm.com)
+                 http://www.geocities.com/SiliconValley/Pines/7885/
+
+APM/2 allows you to put your workstation into APM standby, suspend or power off
+mode.  This program is Freeware (and can be freely distributed,  as long as the
+archive is kept complete), however you must not port it to  any of the inferior
+Windows platforms!
+
+APM0002I: Insufficient commandline options specified.
+
+Syntax: APM /?
+Where:  /? ... display help
+</xmp>
+Getting more details with the <b>/?</b> commandline option:
+<xmp>
+APM/2 V1.40 - Advanced Power Management spec. 1.1/1.2 interface for OS/2
+Copyright (C) by Roman Stangl, 1997, 1998 (rstangl@vnet.ibm.com)
+                 http://www.geocities.com/SiliconValley/Pines/7885/
+
+APM0003I: Commandline options:
+
+Syntax: APM Request [Device] [Schedule] [Language] [Version]
+
+Where:  Request  ... /Verbose   to display APM configuration data
+                 ... /Ready     to restore pre-APM request state
+                 ... /Standby   to invoke APM standby
+                 ... /Suspend   to invoke APM suspend
+                 ... /Poweroff  to invoke APM power off
+                 ... /Poweroff- to invoke DosShutdown(1) and APM power off
+                 ... /Poweroff+ to invoke DosShutdown(0) and APM power off
+                 ... /Poweron   to schedule to power on PC via APM
+        Device   ... /Device BIOS|All|Display|Disk|Parallel|Serial
+                                to apply Request on a device (default is All)
+        Schedule ... /Schedule [yyyy:mm:dd:]hh:mm
+                                to schedule request at the specified date/time
+        Language ... /Language xx (to load NLS messages from APMxx.msg)
+        Version  ... /Force to ignore OS/2 version detected
+
+Note:   DosShutdown(0) ... Performs full  system  shutdown and locks filesystem
+        DosShutdown(1) ... Performs  buffer and  cache flushing to  make system
+                           quiescent by stopping thread execution
+</xmp>
+<p>
+<h2>Using APM/2</h2>
+APM/2 is a commandline interface program to OS/2's APM device driver APM.SYS, which
+should have been installed in your CONFIG.SYS when having selected Power Management
+in Selective Install.
+This device driver is the low level interface to APM BIOS, which is part of the BIOS
+of modern hardware.
+<p>
+OS/2's APM.SYS currently only supports APM BIOS specification 1.2 (and APM/2 therefore
+also supports 1.2), but you need to upgrade to 
+<a href="http://service.software.ibm.com/os2ddpak/html/BA92B5E5B50002BC86256585006B0514.html">
+level 1.2</a> (Warp 4 was shipped with level 1.1, Fixpack 6+ will upgrade to level 1.2).
+Usually PCs implement specification 1.1 in APM BIOS, most recent PCs already support
+specifications 1.2 or even 2.1 too.
+<p>
+A prerequisite for APM.SYS to function is that APM BIOS is enabled in your BIOS.
+APM/2 will then allow you to query APM configuration or to put your PC into APM
+standby, suspend or power off.
+<p>
+<h2>Prerequisites</h2>
+APM power off support and therefore APM/2 requires Warp 4, because only Warp 4 has the
+required support in APM.SYS, other system files and the Kernel to process APM
+power off requests correctly, for other requests you may use Warp 3 too.
+<p>
+Under OS/2 versions prior to Warp 4, for APM power off requests the filesystem 
+will not be closed correctly, causing a CHKDSK during the next reboot. 
+And to cite a tip from Frank Schroeder (OS/2 I/O Subsystem/Device Driver 
+Development): <cite>"Do not try to run the Version 4.0 APM device driver on OS/2 Warp 
+Version 3.0 as there are dependencies upon other system files including the os2krnl"</cite>.
+<p>
+APM/2 has the commandline option <b>/Force</b> that allows you to force APM requests under Warp 3 and
+before.
+This option may be useful when a fixpack or computer vendor improves APM support,
+but most likely it will not work or cause a CHKDSK during next boot.
+<p>
+I've also heard that Warp 4 fixpacks 2 and above have broken APM support.
+I haven't verified if restoring the Warp 4 GA APM.SYS driver restores working APM 
+support but it's sure worth a try.
+Just to remember, the rule of thumb <cite>"Never fix a running system"</cite> still applies.
+<p>
+<h2>Commandline syntax</h2>
+<p>
+<table border=1>
+<tr><td>/Verbose</td>
+    <td>This option displays the APM support available from APM.SYS</td>
+<tr><td>/Ready</td>
+    <td>This option restores APM support to the state before an APM standby, suspend
+        or power off request was submitted.
+        For example, if you have put your PC into APM standby using the <b>/Standby</b>
+        option, then you may restore from that state by activities defined in
+        BIOS (usually keyboard and mouse events) or by running APM/2 with the
+        <b>/Ready</b> option.
+        This option may be useful when scheduled or invoked by e.g. a remote telnet
+        session.
+        However, I think it may be very APM BIOS and hardware dependent for which APM
+        requests this option restores the previous state (e.g. if BIOS slows down the
+        CPU it likely will work, if BIOS stops CPU I'm afraid you can't execute any
+        program).</td>.
+<tr><td>/Standby</td>
+    <td>This option requests APM support to put your PC into APM standby.
+        Most likely this will cause your display to be switched into standby mode,
+        your disk may be spinned down and/or the clock speed of your CPU to be reduced</td>
+<tr><td>/Suspend</td>
+    <td>This option requests APM support to put your PC into APM suspend under Warp 4.
+        Most likely this will cause your display to be switched off and your PC to
+        go into <em>sleep</em> mode (for ThinkPads this request likely causes
+        a hibernation to disk).<br>
+        No Shutdown of the file system will be performed, you PC will be able to continue
+        when awakened.</td>
+<tr><td>/Poweroff</td>
+    <td>This option requests APM support to shut down the filesystem (and thus no CHKDSK
+        during next boot) and to power off your PC.<br>
+        As only Warp 4 has the required changes to shut down the filesystem, APM/2 by
+        default refuses to run on Warp 3 and before.<br>
+        This option is hardware and BIOS dependent and may not work for your PC.</td>
+<tr><td>/Poweroff-</td>
+    <td>This option is the same as option <b>/Poweroff</b> except that thread execution will
+        be quiescent by calling DosShutdown(1) before the APM request, the file system
+        is still not locked.<br>
+        As Warp 4 is supposed to shut down the file system this option should not be
+        required, however a user has surprisingly found out that this made power off
+        requests more stable (no more CHKDSKs during next boot).</td>
+<tr><td>/Poweroff+</td>
+    <td>This option is the same as option <b>/Poweroff</b> except that the file system is shut down
+        by calling DosShutdown(0) before the APM request, which causes subsequent file 
+        I/O to fail or block.<br>
+        As Warp 4 is supposed to shut down the file system this option should not be
+        required too, however one never knows (so you may try if <b>/Shutdown</b> fails).</td>
+<tr><td>/Poweron</td>
+    <td>This option allows you to schedule the date and time when your PC automatically
+        powers on by using the automatic APM power on timer. However, this requires
+        APM support at level 1.2+ and possibly also activation of some BIOS settings.
+        This option is only valid in addition to the <b>/Schedule [yyyy:mm:dd:]hh:mm</b> 
+        option).<br>
+        This option is hardware and BIOS dependent and may not work for your PC.</td>
+<tr><td>/Device BIOS|All|Display| Disk|Parallel|Serial|</td>
+    <td>This option allows you to specify the device the APM request is performed on.
+        If this option is not specified <b>All</b> is the default, causing the APM
+        request to target all APM devices in your PC.<br>
+        Of course, only the <b>/Ready</b>, <b>/Standby</b>, <b>/Suspend</b> and the
+        <b>/Poweroff</b> options make sense, so be cautious.
+        This options are hardware and BIOS dependent and may not work for your PC.</td>
+<tr><td>/Schedule [yyyy:mm:dd:]hh:mm</td>
+    <td>This option allows you to schedule APM requests, except the <b>/Verbose</b> option,
+        which can't be scheduled. This option must be used when you want to use the
+        <b>/Poweron</b> option to schedule the automatic APM power on timer.</td>
+<tr><td>/Language xx</td>
+    <td>This option allows you to force using the national language version of APM/2 where
+        <b>APMxx.msg</b> exists. APM/2 ships with APMUs.msg and APMGr.msg, being the
+        English and German NLS versions.<br>
+        APM/2 tries to load messages in the language of the system where it is running
+        on, e.g. on a German setup (049 at the COUNTRY statement in CONFIG.SYS) the
+        German message file is used, though those automatic support is limited to
+        only major languages.<br>
+        You can easily use APMUs.txt as a template, translate the messages while preserving
+        the row and column layout, and then compile them into your national language
+        APMxx.msg messagefile. As said, if you're running a major language as e.g. French
+        or Spanish, NLS support will be used automatically then, otherwise just supply
+        the <b>/Language xx</b> option.</td>
+<tr><td>/Force</td>
+    <td>This option allows you to force APM/2 accepting the <b>/Poweroff</b> options
+        under Warp 3 and before.
+        Most likely the APM requests will fail or may cause a CHKDSK during next boot.</td>
+</table>
+<h2><a name="Problems">Known problems</a></h2>
+Unfortunately launching APM requests causes complicated processing inside OS/2 and 
+heavily depends upon a bugfree APM BIOS (and as Windows and OS/2 may used different entry
+points, the result of same request may differ between both OSes, and yes, I've also seen
+a preloaded WIN95 machine that solidly hung after requesting a APM power off).
+I have discussed the problems I encountered with Frank Schroeder, the owner of the APM.SYS
+code, and the most likely reasons for APM requests to fail are the APM BIOS implementation,
+timing issues and other implementation problems (like orders of APIs called, frequency 
+of polling, method of power management and event notification, etc.).
+<p>
+I know there are many problems with APM, I would almost say APM is broken by design
+or the lack of, so <b>I welcome any <a href="DownloadAPM2Form.html">feedback</a></b>.
+If I get reasonable response I plan to collect and document the feedback into a
+pro and cons list for OS/2's APM support.
+<p>
+Per design, the option <b>/Poweroff</b> should work without additional parameters,
+but if you experience one of the problems mentioned above, you may experiment with adding
+<b>-</b> or <b>+</b> to those options.
+<p>
+<b>If APM requests fail, most likely a CHKDSK will be run during next boot, but it's a good
+idea for sure to have a backup!</b>
+<p>
+Now what can you try to improve the situation?
+<ul>
+<li>It should not hurt if you're flash the latest BIOS and watch out for the latest OS/2
+APM.SYS driver.
+<li>You may have to play around with your APM BIOS settings, e.g. I've been informed by
+a APM/2 user that his problems were at least partly solved after he enabled the Wake-up
+functionality (e.g. Wake-up on Ring, Wake-up on LAN), though I don't even have a guess
+why that should make any difference.
+<li>You might compare APM/2 functionality with DOS (under real DOS, as the OS/2 VAPM.SYS
+driver prevents APM access from VDMs, this of course includes WIN-OS2) and WIN programs.
+You may find combinations of settings that may help.
+<li>Try to change the hardware ;-).
+Well, it seems that the same requests behave different on different hardware, thus my
+guess that APM BIOS is the most critical checkpoint for successful use of APM/2.
+From my experience, e.g. APM power off works worse the faster the PC (on a IBM P-200
+powered PC it worked, whereas on a newer PPro-200 and PII-233/266 is consistently
+failed.
+<li>And, after upgrading to Warp 4 Fixpack 6, the WPS Power Object is also enhanced,
+verify if APM request from that object behave differently by APM/2, the source is
+included, so you can code (and mail me hopefully ;-) improvements.
+<li>You may have to change the activity surveilance of IRQs (InterRupt Requests) in
+BIOS, so that only keyboard (IRQ1) and mouse (IRQ12 for PS/2-style, IRQ4 or IRQ3 for
+serial mice) events wakeup from APM standby and suspend.
+To wakeup due to a network adapter you may want to include IRQ11 (or IRQ15 if you're
+not using IDE drives).
+To use the APM poweron timer, you may have to include the RTC (Real Time Clock on
+IRQ8).
+</ul>
+<p>
+<h2>Feedback</h2>
+Please take a few minutes and fill out the 
+<a href="http://www.geocities.com/SiliconValley/Pines/7885/DownloadAPM2Form.html">online APM/2 survey</a>.
+Without feedback I can't improve APM/2 or add some hints here, as I have very limited
+hardware to test OS/2 APM support with.
+<p>
+<h2>Changes between V1.30 and V1.40</h2>
+<p>
+<ul>
+<li>Fixed that message at line 424 was displayed without having been
+completed by the required parameter (DosDevIOCtl() return code).
+<li> Fixed that when running on a non Us or Gr installation that each
+message got prefixed by a message stating that the NLS message
+could not be found and the Us one is taken instead.
+<li>Now, if no /Language option is specified, the Us messagefile is
+taken silently when no NLS messagefile was found, if /Language
+was specified but the file doesn't exist, a single message informs
+the user about that and that from now on the Us one will be taken.
+<li>Fixed minor spelling and layout mistakes in English and German
+message files.
+</ul>
+<p>
+<h2>APM/2 download</h2>
+You are welcome to download 
+<a href="http://www.geocities.com/SiliconValley/Pines/7885/apm2v14.zip">APM/2 V1.40</a>
+(inclusive its source written with VisualAge C++) from this site.
+As this version has been rewritten and may contain bugs therefore, I haven't yet removed
+<a href="http://www.geocities.com/SiliconValley/Pines/7885/apm2v12.zip">APM/2 V1.20</a>.
+Since V1.40 is just a minor bug fix for V1.30 but does not contain functional enhancements,
+V1.30 is no longer available.
+<p>
+<h2>APM Toolkit (C/C++)</h2>
+<p>
+APM/2 includes a C/C++ Toolkit header, which includes the most comprehensive information
+about OS/2 and APM available.
+You may want to use this toolkit to do your own APM OS/2 programming.
+<p>
+This page has been hit <img src="/cgi-bin/counter"> times since 19.11.1997.
+<hr size=5>
+(C) <a href="mailto:rstangl@vnet.ibm.com">Roman Stangl</a> (rstangl@vnet.ibm.com), 26.10.1997
+<br>
+Last update: 06.05.1998
+</body>
+</html>
+

@@ -1,0 +1,107 @@
+<!doctype html public "-//IETF//DTD HTML 3.2//EN">
+<html>
+<head>
+<center><title>The official ISOCOMP/2 (WIN32 port) home page</title></center>
+<meta name="description" content="Official ISOCOMP/2 homepage">
+<meta name="keywords" content="Roman Stangl, ISOCOMP, recurisve file comparison, OS/2, official release">
+<meta name="owner"    content="Roman_Stangl@at.ibm.com">
+<meta name="review"   content="22.05.2002">
+<meta name="security" content="public">
+</head>
+<body background="Os2Warp.gif">
+<h1>The ISOCOMP/2 (WIN32 port) home page</h1>
+<font Face="Helv,Helvetica,Arial">
+<p>
+<h2>ISOCOMP/2 on WIN32</h2>
+<p>
+As far as I can tell, IsoComp/2 for WIN32 should behave the same between OS/2 and WIN32,
+though due to the different APIs there, there might be incompatibilities I'm
+certainly interested in hearing about.
+<p>
+I did the port under NT4 SP5, and though I was using the oldest version of
+the APIs some APIs are not available on WIN9x so it won't work there.
+As always, Microsoft's inflation of APIs for different versions of Windows
+is a hell, and shows that due to their monopoly they can force what they want,
+and whatever they do looks shortsighted!
+<p>
+</font>
+<xmp>
+ISOCOMP/2 - The ISO image file compare utility for OS/2 (WIN32 port), V1.20
+
+            (C) Roman Stangl 05, 2002 (Roman_Stangl@at.ibm.com)
+            http://www.geocities.com/SiliconValley/Pines/7885/
+
+Use the ISOCOMP command to compare the contents of a Source CD-ROM with the
+contents of a Target CD-ROM or with an ISO, RAW or RSJ track image file.
+Or you can create an ISO image or RSJ track image file out of a CD-ROM.
+
+Syntax:
+  ISOCOMP Source(CDROM-drive:|[drive:\|\\server\][path\]ISO|RAW-file)
+        Target(CDROM-drive:|[drive:\|\\server\][path\]ISO|RAW-file)
+        [/!MP] [/LOG[:[drive:\|\\server\][path\]file]] [/P] [/TINY]
+        [/CHK:drive:\|\\server\][path\]file]
+  ISOCOMP CDROM-drive: | CDROM-drive:|[drive:\|\\server\][path\]ISO|RAW-file
+        [/!MP] [/LOG[:[drive:\|\\server\][path\]file]] [/P] [/TINY]
+        [/CHK:[drive:\|\\server\][path\]file]
+Where:
+  Source(CDROM-drive:|[drive:\|\\server\][path\]ISO|RAW-file)
+                 Specifies either the Source drive letter (e.g. Z or Z:) of
+                 your CD-ROM drive containing a data CD-ROM, or the location
+                 and name of a Source ISO, RAW or RSJ track image file, whose
+                 contents you want to compare with a media in your Target
+                 CD-ROM drive or to compare it with or write from an ISO image
+                 or RSJ track image file.
+                 You may specify a fully qualified path or UNC path.
+  Target(CDROM-drive:|[drive:\|\\server\][path\]ISO|RAW-file)
+                 Specifies either the Target drive letter (e.g. Z or Z:) of
+                 your CD-ROM drive containing a data CD-ROM, or the location
+                 and name of a Target ISO, RAW or RSJ track image file. If
+                 the image file does not exist, it will be created out of the
+                 CD-ROM contents, otherwise compared with the CD-ROM contents
+                 (Only ISO or RSJ track image files will be created).
+                 You may specify a fully qualified path or UNC path.
+  [/!MP]
+                 Specifies that only 1 thread is used reading the CD-ROM
+                 contents and the image file instead of the default of 2
+                 threads.
+  [/LOG[:[drive:\|\\server\][path\]file]]
+                 Specifies that ISOCOMP/2 logs all problems into a file
+                 specified either by this parameter, or by the ISOCOMP
+                 environment variable or into ISOCOMP.LOG (put into the
+                 directory ISOCOMP/2 was installed into) otherwise.
+  [/P]
+                 Request ISOCOMP/2 to pause when it has finished.
+  [/TINY]
+                 2 64kB buffers are used instead of a percentage of total RAM.
+  [/CHK:[drive:\|\\server\][path\]file]
+                 Specifies that ISOCOMP/2 uses a checksum file to ensure data
+                 integrity. If the checksum file does not exist, it will be
+                 created, otherwise compared with the checksum calculated
+                 from the data read from the Source.
+Returns:
+  0              Successful completion
+  100+           Fatal, unrecoverable exceptions
+
+ISOCOMP101: Too few commandline arguments specified.
+</xmp>
+<font Face="Helv,Helvetica,Arial">
+<p>
+<h2>Accessing IsoComp/2 for WIN32</h2>
+<p>
+The port IsoComp/2 to windows is part of the 
+<a href="../XComp.html#XCOMP/2 source code">XComp/2 source code</a> archive, both
+for the modified source code and the exectuable itself.
+<p>
+Note: <font color="Red">You have to have access to an OS/2 PC to decrypt the 
+encrypted source code archive, because I provide the decryption executable only for OS/2.
+These tools are for OS/2 users who are forced to used Windows sometimes, but
+not for users that uncritically help to extend the power of the evil's empire 
+monopoly!</font>
+<p>
+<hr size=5>
+(C) <a href="mailto:Roman_Stangl@at.ibm.com">Roman Stangl</a> (Roman_Stangl@at.ibm.com), 30.12.2001
+<br>
+Last update: 22.05.2002
+</body>
+</html>
+
