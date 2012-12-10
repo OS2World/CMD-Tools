@@ -10,6 +10,7 @@ Command Line Tools for OS/2 and eComStation:
 LICENSE
 ===============
 - GNU GPL V3
+- Free
 
 COMPILE TOOLS
 ===============
@@ -18,6 +19,7 @@ COMPILE TOOLS
 AUTHORS
 ===============
 * Roman Stangl
+* B.Horeni
 
 LINKS
 ===============

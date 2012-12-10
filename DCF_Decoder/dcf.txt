@@ -1,0 +1,27 @@
+                          Upload Information Template for Hobbes.nmsu.edu
+                          ===============================================
+
+        Archive Filename: dcf.zip
+       Short Description: DCF Decoder for radioclock receiver (sourcecode incl.)
+        Long Description: ver.1.0.1 
+
+      Proposed directory
+           for placement: /pub/os2/apps/clock
+
+               Your name: Bohumir Horeni 
+           Email address: horeni@login.cz
+    Program contact name: (same)
+   Program contact email: (same)
+             Program URL: (none) 
+
+      Would you like the
+   contact email address
+    included in listings? yes
+
+Operating System/Version: OS/2 v.3 or later
+ Additional requirements: emx
+
+                Replaces: /pub/os2/apps/clock/dcf.zip
+
+
+
